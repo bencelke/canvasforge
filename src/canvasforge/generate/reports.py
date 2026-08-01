@@ -19,7 +19,13 @@ from canvasforge.ir.models import (
 
 
 def compute_manifest_checksum(raw_bytes: bytes) -> str:
-    return hashlib.sha256(raw_bytes).hexdigest()
+    """SHA-256 of manifest bytes with newlines normalized to LF.
+
+    Windows checkouts with ``core.autocrlf=true`` yield CRLF on disk.
+    Normalizing before hashing keeps build IDs platform-stable.
+    """
+    normalized = raw_bytes.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(normalized).hexdigest()
 
 
 def compute_build_id(

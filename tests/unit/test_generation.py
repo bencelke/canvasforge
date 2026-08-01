@@ -63,6 +63,14 @@ def test_hello_generation_deterministic(tmp_path: Path) -> None:
     )
 
 
+def test_manifest_checksum_normalizes_newlines() -> None:
+    from canvasforge.generate.reports import compute_manifest_checksum
+
+    lf = b"app:\n  key: demo\n"
+    crlf = b"app:\r\n  key: demo\r\n"
+    assert compute_manifest_checksum(lf) == compute_manifest_checksum(crlf)
+
+
 def test_hello_yaml_snapshot() -> None:
     result = run_generation(HELLO, dry_run=True)
     yaml_text = result.yaml_by_screen["scrDashboard"]

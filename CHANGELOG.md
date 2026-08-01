@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Phase 3A: offline App Factory architecture docs, restructured roadmap (Phases 3A–11), Windows migration report.
+- `.gitattributes` LF normalization for cross-platform checksum/snapshot stability.
+- Broader `.gitignore` exclusions for kits, preview caches, solution ZIPs, and local evidence.
+
+### Changed
+
+- Manifest checksum / build ID computation normalizes newlines to LF (Windows `autocrlf` safety).
+- README, architecture, product vision, and security docs updated for offline-first product direction.
+
+### Added (Phase 2)
+
 - Phase 2: normalized AppIR, control allowlist, Candidate Code View adapter.
 - CLI commands: `generate`, `controls`, `evidence`.
 - Hello CanvasForge deterministic Candidate generation + snapshot tests.

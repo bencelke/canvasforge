@@ -2,7 +2,7 @@
 
 ## Default posture
 
-CanvasForge Phase 1 runs in **offline mode only**.
+CanvasForge runs in **offline mode** by default. Offline-first is the core product architecture, not a temporary Phase 1 limitation.
 
 Offline mode means:
 
@@ -40,4 +40,4 @@ Inspectable outputs belong under `generated/` (gitignored except `.gitkeep`). Ma
 
 ## Transition to connected mode
 
-Connected features are out of scope until a later phase publishes an explicit opt-in model. See [connected-mode-roadmap.md](connected-mode-roadmap.md).
+Connected Microsoft tooling is a **future optional adapter**, not the core architecture. It remains out of scope until safety and Microsoft-supported tooling requirements are met. See [connected-mode-roadmap.md](connected-mode-roadmap.md) and [offline-app-factory.md](offline-app-factory.md).

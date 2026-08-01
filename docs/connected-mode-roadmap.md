@@ -2,6 +2,8 @@
 
 Connected mode is **not implemented** and must remain disabled until safety and Microsoft-supported tooling requirements are met.
 
+**Architectural note:** Connected Microsoft tooling is a future **optional adapter**. The core product is the offline App Factory (local Studio, Deployment Kits, advisory preview, and work-side Runner). Do not treat live tenant access as a prerequisite for CanvasForge usefulness.
+
 ## Principles
 
 1. Explicit opt-in only

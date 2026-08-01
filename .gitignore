@@ -64,9 +64,39 @@ secrets.json
 auth.json
 *.msapp
 
+# Power Platform / solution packages (never commit tenant artifacts)
+*.zip
+!schemas/**/*.zip
+solutions/
+
+# CanvasForge Deployment Kits and extracted contents
+*.cforge.zip
+kits/
+deployment-kits/
+kit-out/
+extracted/
+unpacked-kit/
+
+# Incoming / local evidence (sanitized fixtures may be added deliberately)
+evidence/incoming/
+evidence/runtime/
+**/sanitized-runtime-reports/
+
 # Generated output (inspectable locally; not committed by default)
 generated/**
 !generated/.gitkeep
+
+# Local preview (future React/Vite) caches and build output
+preview/.cache/
+preview/dist/
+preview/node_modules/
+**/.vite/
+local-preview-cache/
+
+# Local screenshots and capture folders
+screenshots/
+local-screenshots/
+**/studio-captures/
 
 # Local scratch
 *.log

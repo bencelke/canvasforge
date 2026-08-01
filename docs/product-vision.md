@@ -2,11 +2,13 @@
 
 ## What CanvasForge is
 
-CanvasForge is a **local, manifest-driven compiler and validation tool** for AI-assisted Microsoft Power Apps Canvas frontend generation.
+CanvasForge is a **local AI-assisted, manifest-driven frontend compiler and visual app builder** for Microsoft Power Apps Canvas applications.
 
-It helps developers and AI coding agents describe administrative Canvas applications as structured manifests, then produce deterministic, inspectable plans and (in later phases) Studio-compatible frontend artifacts.
+It generates tenant-neutral frontend structures, Power Fx candidates, local previews, and portable Deployment Kits that an authorized maker can later import or paste into Power Apps Studio and connect to SharePoint Lists and Power Automate.
 
-CanvasForge is **not** a replacement for Power Apps Studio. Studio remains the final rendering and validation authority.
+CanvasForge must remain useful without AVD, Power Apps login, tenant access, Microsoft authentication, or direct Microsoft API access.
+
+CanvasForge is **not** a replacement for Power Apps Studio. Studio remains the final rendering and validation authority. Local preview is advisory only.
 
 ## Problem
 
@@ -34,14 +36,15 @@ Use a structured intermediate **application manifest** as the source of truth:
 
 ## V1 focus
 
-- Offline manifest authoring
-- Typed validation
-- Deterministic planning
-- Administrative app layouts
-- Responsive frontend structures
-- Power Fx generation later
-- Code View output later
-- Connected Microsoft Canvas tooling later
+- Offline App Factory (CanvasForge Studio on a local PC)
+- Offline manifest authoring and typed validation
+- Deterministic planning and Candidate Code View generation
+- Portable Code View Deployment Kits
+- Advisory local graphical preview
+- Administrative app layouts and responsive structures
+- Power Fx template expansion
+- O-Room Actions as reference implementation (not core)
+- Optional connected Microsoft tooling only as a future adapter
 
 ## V1 non-goals (summary)
 
