@@ -1,0 +1,158 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "canvasforge"
+version = "0.1.0"
+description = "Local, manifest-driven compiler and validation tool for AI-assisted Microsoft Power Apps Canvas frontend generation."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12"
+authors = [
+  { name = "CanvasForge Contributors" },
+]
+keywords = [
+  "power-apps",
+  "canvas",
+  "manifest",
+  "offline",
+  "validation",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Code Generators",
+  "Typing :: Typed",
+]
+dependencies = [
+  "pydantic>=2.10,<3",
+  "pydantic-core>=2.27",
+  "typer>=0.16,<1",
+  "rich>=13.9,<15",
+  "ruamel.yaml>=0.18,<0.19",
+  "jsonschema>=4.23,<5",
+  "referencing>=0.35",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "ruff>=0.12",
+  "mypy>=1.17",
+  "types-jsonschema>=4.23",
+  "pre-commit>=4.2",
+]
+
+[project.scripts]
+canvasforge = "canvasforge.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/bencelke/canvasforge"
+Repository = "https://github.com/bencelke/canvasforge"
+Issues = "https://github.com/bencelke/canvasforge/issues"
+Documentation = "https://github.com/bencelke/canvasforge/tree/main/docs"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/canvasforge"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"schemas/app-manifest.schema.json" = "canvasforge/data/app-manifest.schema.json"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/schemas",
+  "/docs",
+  "/examples",
+  "/tests",
+  "/README.md",
+  "/LICENSE",
+  "/SECURITY.md",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "ruff>=0.12",
+  "mypy>=1.17",
+  "types-jsonschema>=4.23",
+  "pre-commit>=4.2",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+  "E",
+  "F",
+  "I",
+  "UP",
+  "B",
+  "SIM",
+  "N",
+  "RUF",
+]
+ignore = [
+  "E501",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["N802"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unreachable = true
+warn_unused_ignores = true
+disallow_any_generics = true
+no_implicit_reexport = true
+packages = ["canvasforge"]
+mypy_path = "src"
+exclude = ["generated/", "examples/"]
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = [
+  "-ra",
+  "--strict-markers",
+  "--strict-config",
+]
+filterwarnings = [
+  "error",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["canvasforge"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+exclude_lines = [
+  "pragma: no cover",
+  "if TYPE_CHECKING:",
+  "raise NotImplementedError",
+]

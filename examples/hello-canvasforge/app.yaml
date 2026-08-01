@@ -1,0 +1,73 @@
+# Hello CanvasForge — minimal valid Phase 1 manifest
+# Fictional example only. Offline. No Microsoft connectivity.
+
+app:
+  key: helloCanvasForge
+  name: Hello CanvasForge
+  description: Minimal CanvasForge example used to verify offline validation and planning.
+  version: 0.1.0
+  manifestVersion: "0.1"
+  layout: responsive-shell
+  startScreen: scrDashboard
+  theme: themeHello
+
+theme:
+  key: themeHello
+  mode: light
+  tokens:
+    accent: "#0B6E4F"
+    surface: "#F7F7F2"
+    text: "#1B1B1B"
+
+screens:
+  - key: scrDashboard
+    name: Dashboard
+    title: Dashboard
+    shell: app-shell
+    sections:
+      - key: hdrDashboard
+        type: page-header
+        title: Welcome to CanvasForge
+        properties:
+          subtitle: Offline manifest validation demo
+      - key: gridSummary
+        type: summary-grid
+        title: Snapshot
+        layout: two-up
+      - key: cardReady
+        type: summary-card
+        title: Ready Screens
+        properties:
+          value: "1"
+          tone: positive
+      - key: cardPending
+        type: summary-card
+        title: Pending Sections
+        properties:
+          value: "0"
+          tone: neutral
+      - key: emptyDashboard
+        type: empty-state
+        title: No additional widgets
+        properties:
+          message: Add sections to this manifest to extend the plan.
+
+navigation:
+  - key: navDashboard
+    label: Dashboard
+    targetScreen: scrDashboard
+    sortOrder: 1
+    implemented: true
+
+breakpoints:
+  mobile: 640
+  tablet: 1024
+  desktop: 1440
+
+metadata:
+  tags:
+    - example
+    - hello
+  owner: CanvasForge Examples
+  createdFor: Phase 1 acceptance
+  notes: Fictional demo only. Not connected to any tenant.

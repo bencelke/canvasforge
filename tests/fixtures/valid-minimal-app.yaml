@@ -1,0 +1,14 @@
+app:
+  key: minimalValid
+  name: Minimal Valid App
+  version: 0.1.0
+  manifestVersion: "0.1"
+  startScreen: scrHome
+
+screens:
+  - key: scrHome
+    name: Home
+    sections:
+      - key: hdrHome
+        type: page-header
+        title: Home

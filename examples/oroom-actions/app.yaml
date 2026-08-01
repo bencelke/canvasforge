@@ -1,0 +1,138 @@
+# O-Room Actions — requestor dashboard reference manifest (provisional)
+# Fictional data only. Offline. No Microsoft / SharePoint connectivity in Phase 1.
+# Do not place real names, emails, UICs, EDIPI, operational data, or tenant IDs here.
+
+app:
+  key: oroomActions
+  name: O-Room Actions
+  description: >
+    Reference administrative workflow app (requestor dashboard only for Phase 1).
+    Future phases may expand screens; SharePoint and Power Automate remain deferred.
+  version: 0.1.0
+  manifestVersion: "0.1"
+  layout: responsive-shell
+  startScreen: scrRequestorDashboard
+  theme: themeOroom
+
+theme:
+  key: themeOroom
+  mode: light
+  tokens:
+    accent: "#1F4E79"
+    surface: "#F3F6F9"
+    text: "#12263A"
+    warning: "#B45309"
+    success: "#166534"
+
+dataSources:
+  - key: actions
+    kind: collection
+    mode: offline-mock
+    collection: colActions
+    description: Fictional mock actions collection for offline planning only.
+
+permissions:
+  - key: requestor
+    description: Requestor visibility for personal actions dashboard
+  - key: leadership
+    description: Reserved for future commander / 1SG views (not implemented here)
+  - key: s1
+    description: Reserved for future S1 processing workspace (not implemented here)
+
+screens:
+  - key: scrRequestorDashboard
+    name: Requestor Dashboard
+    title: My Actions
+    shell: responsive-sidebar-header
+    permissions:
+      - requestor
+    sections:
+      - key: hdrMyActions
+        type: page-header
+        title: My Actions
+        properties:
+          subtitle: Track submitted administrative actions
+      - key: gridStatus
+        type: summary-grid
+        title: Status summary
+        layout: four-up
+        properties:
+          cards:
+            - title: Open Actions
+              metricKey: open
+            - title: Returned
+              metricKey: returned
+            - title: Awaiting Leadership
+              metricKey: awaitingLeadership
+            - title: Completed
+              metricKey: completed
+      - key: cardOpen
+        type: summary-card
+        title: Open Actions
+        properties:
+          metricKey: open
+          valueFrom: actions
+      - key: cardReturned
+        type: summary-card
+        title: Returned
+        properties:
+          metricKey: returned
+          valueFrom: actions
+      - key: cardAwaiting
+        type: summary-card
+        title: Awaiting Leadership
+        properties:
+          metricKey: awaitingLeadership
+          valueFrom: actions
+      - key: cardCompleted
+        type: summary-card
+        title: Completed
+        properties:
+          metricKey: completed
+          valueFrom: actions
+      - key: toolbarSearch
+        type: search-toolbar
+        title: Search actions
+        properties:
+          placeholder: Search by title or status
+          bindTo: actions
+      - key: galleryActions
+        type: action-gallery
+        title: Actions
+        dataSource: actions
+        properties:
+          pageSize: 5
+          fields:
+            - title
+            - status
+            - submittedOn
+            - assignedDesk
+      - key: emptyActions
+        type: empty-state
+        title: No actions match
+        properties:
+          message: Adjust filters or create a new fictional action record.
+
+navigation:
+  - key: navRequestorDashboard
+    label: My Actions
+    targetScreen: scrRequestorDashboard
+    sortOrder: 1
+    permission: requestor
+    implemented: true
+
+breakpoints:
+  mobile: 640
+  tablet: 1024
+  desktop: 1440
+
+metadata:
+  tags:
+    - reference
+    - oroom-actions
+    - requestor-dashboard
+  owner: CanvasForge Examples
+  createdFor: O-Room Actions reference (fictional)
+  notes: >
+    Phase 1 covers the requestor dashboard only. Commander, 1SG, and S1 workspaces
+    are intentionally omitted. No production connectors.

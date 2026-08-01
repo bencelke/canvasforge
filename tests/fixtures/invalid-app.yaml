@@ -1,0 +1,30 @@
+# Intentionally invalid: bad manifest version, missing start screen target,
+# duplicate section keys, unknown navigation target, bad breakpoints, unsupported section.
+
+app:
+  key: invalidApp
+  name: Invalid App
+  version: 0.1.0
+  manifestVersion: "9.9"
+  startScreen: scrMissing
+
+screens:
+  - key: scrHome
+    name: Home
+    sections:
+      - key: dupSection
+        type: page-header
+        title: One
+      - key: dupSection
+        type: not-a-real-section
+        title: Two
+
+navigation:
+  - key: navBroken
+    label: Broken
+    targetScreen: scrDoesNotExist
+
+breakpoints:
+  mobile: 1200
+  tablet: 800
+  desktop: 600

@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canvasforge.dev/schemas/app-manifest.schema.json",
+  "title": "CanvasForge Application Manifest",
+  "description": "Offline application manifest for CanvasForge Phase 1 (manifest version 0.1).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["app", "screens"],
+  "properties": {
+    "app": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "name", "version", "manifestVersion", "startScreen"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 4000 },
+        "version": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "manifestVersion": { "type": "string", "const": "0.1" },
+        "layout": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "startScreen": { "$ref": "#/$defs/key" },
+        "theme": { "$ref": "#/$defs/key" }
+      }
+    },
+    "theme": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "mode"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "mode": { "type": "string", "enum": ["light", "dark", "system"] },
+        "tokens": {
+          "type": "object",
+          "additionalProperties": { "type": "string", "maxLength": 256 },
+          "propertyNames": { "$ref": "#/$defs/key" }
+        }
+      }
+    },
+    "dataSources": {
+      "type": "array",
+      "maxItems": 200,
+      "items": { "$ref": "#/$defs/dataSource" }
+    },
+    "screens": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 200,
+      "items": { "$ref": "#/$defs/screen" }
+    },
+    "navigation": {
+      "type": "array",
+      "maxItems": 200,
+      "items": { "$ref": "#/$defs/navigationItem" }
+    },
+    "permissions": {
+      "type": "array",
+      "maxItems": 200,
+      "items": { "$ref": "#/$defs/permission" }
+    },
+    "breakpoints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mobile": { "$ref": "#/$defs/positiveInt" },
+        "tablet": { "$ref": "#/$defs/positiveInt" },
+        "desktop": { "$ref": "#/$defs/positiveInt" }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tags": {
+          "type": "array",
+          "maxItems": 50,
+          "items": { "type": "string", "minLength": 1, "maxLength": 64 }
+        },
+        "owner": { "type": "string", "maxLength": 200 },
+        "createdFor": { "type": "string", "maxLength": 200 },
+        "notes": { "type": "string", "maxLength": 4000 }
+      }
+    }
+  },
+  "$defs": {
+    "key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+    },
+    "positiveInt": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100000
+    },
+    "dataSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "kind", "mode"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "kind": {
+          "type": "string",
+          "enum": ["collection", "mock", "connector-deferred"]
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["offline-mock", "deferred"]
+        },
+        "collection": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "description": { "type": "string", "maxLength": 2000 }
+      }
+    },
+    "permission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "description": { "type": "string", "maxLength": 2000 }
+      }
+    },
+    "navigationItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "label", "targetScreen"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "label": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "targetScreen": { "$ref": "#/$defs/key" },
+        "sortOrder": { "type": "integer", "minimum": 0, "maximum": 100000 },
+        "permission": { "$ref": "#/$defs/key" },
+        "implemented": { "type": "boolean" }
+      }
+    },
+    "screen": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "name", "sections"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "title": { "type": "string", "maxLength": 200 },
+        "shell": { "type": "string", "maxLength": 128 },
+        "permissions": {
+          "type": "array",
+          "maxItems": 50,
+          "items": { "$ref": "#/$defs/key" }
+        },
+        "sections": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 200,
+          "items": { "$ref": "#/$defs/section" }
+        }
+      }
+    },
+    "section": {
+      "type": "object",
+      "required": ["key", "type"],
+      "properties": {
+        "key": { "$ref": "#/$defs/key" },
+        "type": {
+          "type": "string",
+          "enum": [
+            "page-header",
+            "summary-grid",
+            "summary-card",
+            "action-gallery",
+            "search-toolbar",
+            "detail-panel",
+            "empty-state",
+            "vertical-stack",
+            "horizontal-stack"
+          ]
+        },
+        "title": { "type": "string", "maxLength": 200 },
+        "dataSource": { "$ref": "#/$defs/key" },
+        "layout": { "type": "string", "maxLength": 128 },
+        "properties": {
+          "type": "object",
+          "maxProperties": 100
+        },
+        "children": {
+          "type": "array",
+          "maxItems": 100,
+          "items": { "$ref": "#/$defs/section" }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "type": { "enum": ["vertical-stack", "horizontal-stack"] } },
+            "required": ["type"]
+          },
+          "then": true,
+          "else": {
+            "properties": {
+              "children": false
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

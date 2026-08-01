@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ACT-1001",
+    "title": "Update duty roster template",
+    "status": "Open",
+    "submittedOn": "2026-07-12",
+    "assignedDesk": "Admin Desk A",
+    "requestorAlias": "river.stone"
+  },
+  {
+    "id": "ACT-1002",
+    "title": "Request spare badge holder",
+    "status": "Returned",
+    "submittedOn": "2026-07-18",
+    "assignedDesk": "Admin Desk B",
+    "requestorAlias": "maple.quartz"
+  },
+  {
+    "id": "ACT-1003",
+    "title": "Schedule orientation briefing room",
+    "status": "Awaiting Leadership",
+    "submittedOn": "2026-07-21",
+    "assignedDesk": "Leadership Queue",
+    "requestorAlias": "cedar.lake"
+  },
+  {
+    "id": "ACT-1004",
+    "title": "Replace broken label printer",
+    "status": "Completed",
+    "submittedOn": "2026-06-30",
+    "assignedDesk": "Facilities Desk",
+    "requestorAlias": "pine.harbor"
+  },
+  {
+    "id": "ACT-1005",
+    "title": "Publish weekly checklist reminder",
+    "status": "Open",
+    "submittedOn": "2026-07-28",
+    "assignedDesk": "Admin Desk A",
+    "requestorAlias": "willow.brook"
+  }
+]
