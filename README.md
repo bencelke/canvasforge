@@ -6,7 +6,7 @@ CanvasForge generates **tenant-neutral** frontend structures, Power Fx candidate
 
 It must remain useful **without** AVD, Power Apps login, military tenant access, Microsoft authentication, Environment Maker rights, or direct Microsoft API access.
 
-> **Current baseline:** Phase 2 compiler + Phase 3A offline architecture pivot. Candidate Code View YAML only — **Studio-unvalidated**. No Deployment Kit builder yet, no GUI preview yet, no `.msapp` packaging, no Microsoft connectivity, no authentication.
+> **Current baseline:** Phase 3B Deployment Kit builder (``.cforge.zip``). Candidate Code View YAML — **Studio-unvalidated**. No GUI preview yet, no `.msapp` packaging, no Microsoft connectivity, no authentication.
 
 **Public repository warning:** Assume anything committed is world-readable. Never commit secrets, tenant identifiers, credentials, CAC material, real operational data, or unsanitized Studio exports.
 
@@ -41,7 +41,7 @@ Power Apps Studio remains the final rendering and validation authority. Local pr
 | Hello Candidate Code View generation | Done (Studio-unvalidated) |
 | O-Room reduced proof manifest | Done |
 | Offline App Factory architecture docs | Done (Phase 3A) |
-| Deployment Kit builder | Not started (Phase 3B) |
+| Deployment Kit builder (`.cforge.zip`) | Done (Phase 3B) |
 | Local graphical preview | Not started (Phase 4) |
 | Work-side Runner | Not started (Phase 8) |
 | Experimental `.msapp` | Deferred (Phase 9) |
@@ -75,7 +75,31 @@ uv run canvasforge evidence list
 uv run canvasforge validate examples/oroom-actions/app.yaml
 uv run canvasforge validate examples/oroom-actions/dashboard-proof.yaml
 uv run canvasforge generate examples/oroom-actions/dashboard-proof.yaml --target code-view
+
+uv run canvasforge package examples/hello-canvasforge/app.yaml --output dist/Hello-CanvasForge.cforge.zip
+uv run canvasforge package examples/oroom-actions/dashboard-proof.yaml --output dist/O-Room-Dashboard-Proof.cforge.zip
+uv run canvasforge package verify dist/Hello-CanvasForge.cforge.zip
+uv run canvasforge package inspect dist/Hello-CanvasForge.cforge.zip
 ```
+
+## Deployment Kits (`.cforge.zip`)
+
+A **CanvasForge Deployment Kit** is a portable, tenant-neutral ZIP for approved handoff to an authorized Power Apps maker.
+
+**It is:** Candidate Code View blocks, manifests, mock schema, maker checklists, checksums, and compatibility reports.
+
+**It is not:** a `.msapp`, a Power Platform solution, an executable, an auth package, or a production-data package.
+
+```bash
+uv run canvasforge package path/to/app.yaml --output dist/MyApp.cforge.zip
+uv run canvasforge package inspect dist/MyApp.cforge.zip
+uv run canvasforge package verify dist/MyApp.cforge.zip
+```
+
+Work-side handoff: [docs/maker-handoff.md](docs/maker-handoff.md).
+Format and security: [docs/deployment-kit-format.md](docs/deployment-kit-format.md), [docs/deployment-kit-security.md](docs/deployment-kit-security.md).
+
+**Warnings:** Do not commit generated kits. Never include production data or credentials. Output remains Candidate until Studio-validated.
 
 ## CLI examples
 
@@ -135,7 +159,10 @@ See [SECURITY.md](SECURITY.md) and [docs/threat-model.md](docs/threat-model.md).
 | Doc | Topic |
 |-----|-------|
 | [docs/offline-app-factory.md](docs/offline-app-factory.md) | Product definition / Studio responsibilities |
-| [docs/deployment-kit-architecture.md](docs/deployment-kit-architecture.md) | `.cforge.zip` layout |
+| [docs/deployment-kit-format.md](docs/deployment-kit-format.md) | `.cforge.zip` layout and checksums |
+| [docs/deployment-kit-security.md](docs/deployment-kit-security.md) | Forbidden-content scan and archive limits |
+| [docs/maker-handoff.md](docs/maker-handoff.md) | Work-side handoff concept |
+| [docs/deployment-kit-architecture.md](docs/deployment-kit-architecture.md) | Kit architecture |
 | [docs/local-preview-architecture.md](docs/local-preview-architecture.md) | Future React preview |
 | [docs/work-side-runner.md](docs/work-side-runner.md) | Offline work-side Runner |
 | [docs/msapp-experimental-roadmap.md](docs/msapp-experimental-roadmap.md) | Deferred `.msapp` gates |
@@ -159,8 +186,8 @@ uv run mypy src tests
 | Phase | Focus |
 |-------|--------|
 | 1–2 | Manifest + Candidate Code View (done) |
-| 3A | Windows migration + offline architecture pivot (current) |
-| 3B | Deployment Kit builder |
+| 3A | Windows migration + offline architecture pivot (done) |
+| 3B | Deployment Kit builder (done) |
 | 4 | Local graphical preview |
 | 5 | Prompt-driven manifest editing |
 | 6 | Expanded controls + Power Fx |

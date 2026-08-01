@@ -38,11 +38,12 @@ Use fictional reproductions only.
 5. No `eval`, no dynamic code execution from manifests, no shell execution from manifest fields.
 6. No remote includes, URL imports, or environment-variable interpolation in offline phases.
 7. Generated output under `generated/`, local preview caches, and `*.cforge.zip` kits are local and gitignored by default.
-8. Future connected operations must be explicit, reviewable, and user-approved.
-9. Destructive changes (deletes, overwrites, publishes) require explicit approval in future phases.
-10. Power Apps Studio remains the final validation authority for generated Canvas artifacts.
-11. Local preview is advisory only — never claim Power Apps runtime equivalence.
-12. Work-side Runner (future) must remain AI-free, offline, and free of Microsoft credential handling.
+8. Deployment Kits must pass forbidden-content scanning; never bypass credential/private-key findings.
+9. Future connected operations must be explicit, reviewable, and user-approved.
+10. Destructive changes (deletes, overwrites, publishes) require explicit approval in future phases.
+11. Power Apps Studio remains the final validation authority for generated Canvas artifacts.
+12. Local preview is advisory only — never claim Power Apps runtime equivalence.
+13. Work-side Runner (future) must remain AI-free, offline, and free of Microsoft credential handling.
 
 ## Threat model
 

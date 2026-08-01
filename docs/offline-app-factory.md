@@ -65,7 +65,7 @@ Power Apps Studio validation and publishing
 | Mock data | Partial (examples); expand later |
 | Power Fx generation | Partial / expand (Phase 6) |
 | Canvas frontend generation | Done (Candidate Code View) |
-| Deployment Kit packaging | Planned (Phase 3B) |
+| Deployment Kit packaging | Done (Phase 3B `.cforge.zip`) |
 | Build diff and reports | Partial (generation reports); expand with kits |
 
 ### Non-responsibilities

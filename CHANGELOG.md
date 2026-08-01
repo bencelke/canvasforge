@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Phase 3B: Deployment Kit builder (`canvasforge package` / `inspect` / `verify`).
+- Deployment Kit schema 0.1, forbidden-content scanner, deterministic `.cforge.zip`.
+- Docs: deployment-kit-format/security/versioning, maker-handoff.
+
+### Added (Phase 3A)
+
 - Phase 3A: offline App Factory architecture docs, restructured roadmap (Phases 3A–11), Windows migration report.
 - `.gitattributes` LF normalization for cross-platform checksum/snapshot stability.
 - Broader `.gitignore` exclusions for kits, preview caches, solution ZIPs, and local evidence.

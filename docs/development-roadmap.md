@@ -75,39 +75,26 @@ See also: [offline-app-factory.md](offline-app-factory.md).
 
 ---
 
-## Phase 3B — Portable Deployment Kit specification and builder
+## Phase 3B — Portable Deployment Kit specification and builder (complete)
 
 ### Goals
 
-- Finalize `.cforge.zip` schema and builder CLI
+- Finalize `.cforge.zip` schema 0.1 and builder CLI
 - Emit Code View kits with checksums, reports, and maker checklists
-
-### Non-goals
-
-- `.msapp` packing
-- Work-side Runner UI
-- Tenant connection embedding
 
 ### Deliverables
 
-- Kit schema version + JSON/YAML contracts
-- `canvasforge package` (or equivalent) command
-- Golden tests for kit layout and checksums
-- Updated [deployment-kit-architecture.md](deployment-kit-architecture.md)
+- `canvasforge package` / `inspect` / `verify`
+- `schemas/deployment-kit.schema.json`
+- Forbidden-content scanner and deterministic ZIP
+- Docs: format, security, versioning, maker handoff
 
-### Dependencies
+### Acceptance
 
-- Phase 3A docs and stable Phase 2 generator
-
-### Risks
-
-- Over-scoping kit contents; accidental inclusion of secrets
-
-### Acceptance criteria
-
-- Deterministic kit from Hello + O-Room proof manifests
-- Forbidden-content checks pass
-- Studio-unvalidated Candidate labeling preserved
+- Hello + O-Room proof kits build and verify
+- Byte-identical ZIPs for identical inputs
+- Mock records excluded by default
+- No Microsoft auth/GUI/Runner/`.msapp`
 
 ---
 

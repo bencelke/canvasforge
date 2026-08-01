@@ -3,16 +3,22 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Any
 
 import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
+from typer.core import TyperGroup
 
 from canvasforge import __version__
 from canvasforge.controls.registry import default_registry
+from canvasforge.deployment_kit import (
+    build_deployment_kit,
+    inspect_deployment_kit,
+    verify_deployment_kit,
+)
 from canvasforge.diagnostics.doctor import doctor_passed, run_doctor
 from canvasforge.errors import CanvasForgeError
 from canvasforge.evidence.store import (
@@ -26,11 +32,24 @@ from canvasforge.manifest.models import AppManifest, Section
 from canvasforge.manifest.validator import parse_manifest
 from canvasforge.planner import build_generation_plan
 
+
+class _PackageTyperGroup(TyperGroup):
+    """Treat ``package <manifest.yaml> ...`` as ``package build <manifest.yaml> ...``."""
+
+    def resolve_command(self, ctx: Any, args: list[str]) -> tuple[str | None, Any, list[str]]:
+        if args:
+            first = args[0]
+            if first not in self.commands and first.endswith((".yaml", ".yml")):
+                args = ["build", *args]
+        return super().resolve_command(ctx, args)
+
+
 app = typer.Typer(
     name="canvasforge",
     help=(
-        "CanvasForge — local, manifest-driven planning and Candidate Code View "
-        "generation for Microsoft Power Apps Canvas frontends (offline)."
+        "CanvasForge — local, manifest-driven planning, Candidate Code View "
+        "generation, and Deployment Kit packaging for Microsoft Power Apps "
+        "Canvas frontends (offline)."
     ),
     no_args_is_help=True,
     add_completion=False,
@@ -40,7 +59,14 @@ evidence_app = typer.Typer(
     help="Inspect and import offline Studio evidence records.",
     no_args_is_help=True,
 )
+package_app = typer.Typer(
+    name="package",
+    help="Build, inspect, and verify portable Deployment Kits (.cforge.zip).",
+    no_args_is_help=True,
+    cls=_PackageTyperGroup,
+)
 app.add_typer(evidence_app, name="evidence")
+app.add_typer(package_app, name="package")
 console = Console()
 err_console = Console(stderr=True)
 
@@ -447,6 +473,213 @@ def evidence_record_validation_command() -> None:
             "See docs/studio-round-trip.md",
             title="evidence record-validation",
         )
+    )
+
+
+@package_app.command("build")
+def package_build_command(
+    manifest_path: Annotated[
+        Path,
+        typer.Argument(help="Path to app.yaml"),
+    ],
+    output: Annotated[
+        Path | None,
+        typer.Option("--output", help="Output .cforge.zip path"),
+    ] = None,
+    project_name: Annotated[
+        str | None,
+        typer.Option("--project-name", help="Override project display/file name"),
+    ] = None,
+    target: Annotated[
+        str,
+        typer.Option("--target", help="Target adapter (Phase 3B: code-view)"),
+    ] = "code-view",
+    screen: Annotated[
+        str | None,
+        typer.Option("--screen", help="Package a single screen key"),
+    ] = None,
+    compatibility_profile: Annotated[
+        str,
+        typer.Option("--compatibility-profile", help="Compatibility profile id"),
+    ] = "documented-bootstrap",
+    allow_partial: Annotated[
+        bool,
+        typer.Option("--allow-partial", help="Allow partial generation"),
+    ] = False,
+    dry_run: Annotated[
+        bool,
+        typer.Option("--dry-run", help="Plan package without writing a ZIP"),
+    ] = False,
+    overwrite: Annotated[
+        bool,
+        typer.Option("--overwrite", help="Overwrite an existing output ZIP"),
+    ] = False,
+    as_json: Annotated[
+        bool,
+        typer.Option("--json", help="Emit machine-readable JSON"),
+    ] = False,
+    include_mock_data: Annotated[
+        bool,
+        typer.Option("--include-mock-data", help="Include fictional mock records"),
+    ] = False,
+    non_reproducible_metadata: Annotated[
+        bool,
+        typer.Option(
+            "--non-reproducible-metadata",
+            help="Allow non-reproducible notes (still no machine identity)",
+        ),
+    ] = False,
+) -> None:
+    """Build a portable Deployment Kit (``.cforge.zip``).
+
+    ``canvasforge package <manifest.yaml>`` is accepted as shorthand for
+    ``canvasforge package build <manifest.yaml>``.
+    """
+    try:
+        result = build_deployment_kit(
+            manifest_path,
+            output=output,
+            project_name=project_name,
+            target=target,
+            screen=screen,
+            compatibility_profile=compatibility_profile,
+            allow_partial=allow_partial,
+            dry_run=dry_run,
+            overwrite=overwrite,
+            include_mock_data=include_mock_data,
+            non_reproducible_metadata=non_reproducible_metadata,
+        )
+    except CanvasForgeError as exc:
+        _print_failure(exc)
+        raise typer.Exit(code=1) from exc
+
+    if as_json:
+        console.print_json(
+            data={
+                "buildId": result.build_id,
+                "output": str(result.output_path) if result.output_path else None,
+                "dryRun": result.dry_run,
+                "expectedSize": result.expected_size,
+                "securityStatus": result.security_status,
+                "project": result.project,
+                "members": sorted(result.members.keys()),
+                "omitted": result.omitted,
+                "diagnostics": [d.to_dict() for d in result.diagnostics],
+            }
+        )
+        return
+
+    if dry_run:
+        console.print(
+            Panel.fit(
+                f"[bold]Dry run — no ZIP written[/bold]\n"
+                f"source={manifest_path.name}\n"
+                f"targetOutput={(output.name if output else '(default dist/)')}\n"
+                f"buildId={result.build_id}\n"
+                f"maturity={result.project.get('buildMaturity')}\n"
+                f"security={result.security_status}\n"
+                f"expectedSize={result.expected_size} bytes\n"
+                f"members={len(result.members)}\n"
+                f"omitted={len(result.omitted)}",
+                title="package",
+            )
+        )
+        for name in sorted(result.members.keys()):
+            console.print(f"  include: {name}")
+        for item in result.omitted:
+            console.print(f"  omit: {item['path']} — {item['reason']}")
+        for diagnostic in result.diagnostics:
+            if diagnostic.severity == "warning":
+                console.print(f"[yellow]{diagnostic.format_terminal()}[/yellow]")
+        return
+
+    console.print(
+        Panel.fit(
+            f"[bold]Deployment Kit built[/bold]\n"
+            f"output={result.output_path}\n"
+            f"buildId={result.build_id}\n"
+            f"maturity={result.project.get('buildMaturity')}\n"
+            f"security={result.security_status}\n"
+            f"size={result.expected_size} bytes\n"
+            f"status=Studio-unvalidated Candidate",
+            title="package",
+        )
+    )
+
+
+@package_app.command("inspect")
+def package_inspect_command(
+    kit_path: Annotated[
+        Path,
+        typer.Argument(exists=False, dir_okay=False, readable=False, help="Path to .cforge.zip"),
+    ],
+    as_json: Annotated[
+        bool,
+        typer.Option("--json", help="Emit JSON"),
+    ] = False,
+) -> None:
+    """Inspect a Deployment Kit without extracting it."""
+    try:
+        payload = inspect_deployment_kit(kit_path)
+    except CanvasForgeError as exc:
+        _print_failure(exc)
+        raise typer.Exit(code=1) from exc
+
+    if as_json:
+        console.print_json(data=payload)
+        return
+
+    console.print(
+        Panel.fit(
+            f"[bold]{payload.get('projectName')}[/bold] ({payload.get('projectKey')})\n"
+            f"schema={payload.get('packageSchemaVersion')}\n"
+            f"canvasforge={payload.get('canvasforgeVersion')}\n"
+            f"buildId={payload.get('buildId')}\n"
+            f"maturity={payload.get('buildMaturity')}\n"
+            f"profile={payload.get('compatibilityProfileId')}@"
+            f"{payload.get('compatibilityProfileVersion')}\n"
+            f"checksumStatus={payload.get('checksumStatus')}\n"
+            f"security={payload.get('securityClassification')}\n"
+            f"mockData={payload.get('mockDataClassification')}\n"
+            f"members={payload.get('memberCount')}",
+            title="package inspect",
+        )
+    )
+    console.print("[bold]Deployment steps[/bold]")
+    for step in payload.get("deploymentSteps", []):
+        console.print(f"  {step}")
+    if payload.get("omitted"):
+        console.print("[bold]Omitted[/bold]")
+        for item in payload["omitted"]:
+            console.print(f"  - {item.get('path')}: {item.get('reason')}")
+
+
+@package_app.command("verify")
+def package_verify_command(
+    kit_path: Annotated[
+        Path,
+        typer.Argument(exists=False, dir_okay=False, readable=False, help="Path to .cforge.zip"),
+    ],
+    as_json: Annotated[
+        bool,
+        typer.Option("--json", help="Emit JSON"),
+    ] = False,
+) -> None:
+    """Verify Deployment Kit structure, checksums, and safety limits."""
+    try:
+        payload = verify_deployment_kit(kit_path)
+    except CanvasForgeError as exc:
+        _print_failure(exc)
+        raise typer.Exit(code=1) from exc
+
+    if as_json:
+        console.print_json(data=payload)
+        return
+
+    console.print(
+        f"[green]Verified[/green] buildId={payload.get('buildId')} "
+        f"members={payload.get('memberCount')} "
+        f"contentChecksum={str(payload.get('packageContentChecksum', ''))[:12]}…"
     )
 
 

@@ -103,3 +103,7 @@ local-screenshots/
 tmp/
 temp/
 .cache/
+
+# Explicit kit artifacts (also covered by *.zip / dist/)
+*.cforge.zip
+*.cforge-evidence.zip

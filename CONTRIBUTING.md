@@ -1,6 +1,6 @@
 # Contributing to CanvasForge
 
-Thank you for helping build CanvasForge. This project is early (Phase 0/1) and intentionally constrained.
+Thank you for helping build CanvasForge. This project is early and intentionally constrained (offline App Factory through Phase 3B Deployment Kits).
 
 ## Safety first
 
@@ -10,9 +10,9 @@ This repository is **public**. Do not contribute:
 - Tenant IDs, internal URLs, or production connector configuration
 - Government, military, or operational data
 - Real names, EDIPI, UICs, or military email addresses
-- Exported `.msapp` packages or internal screenshots
+- Exported `.msapp` packages, Deployment Kits (`.cforge.zip`), or internal screenshots
 
-Use fictional data only. See [SECURITY.md](SECURITY.md).
+Use fictional data only. See [SECURITY.md](SECURITY.md) and [docs/deployment-kit-security.md](docs/deployment-kit-security.md).
 
 ## Development setup
 
@@ -27,30 +27,30 @@ uv run ruff check .
 uv run mypy src tests
 ```
 
-## Scope for Phase 1
+## Scope (current)
 
 In scope:
 
 - Manifest models and validation
-- CLI (`version`, `doctor`, `validate`, `inspect`, `plan`)
-- Documentation and examples
-- Tests and CI
+- Candidate Code View generation
+- Deployment Kit packaging (`canvasforge package`)
+- CLI, documentation, examples, tests, CI
 
 Out of scope until a later phase:
 
-- Power Apps YAML / Code View generation
-- `.msapp` packaging
-- Microsoft Graph / Power Platform connectivity
-- MCP servers
-- VS Code / Cursor extensions
-- React preview apps
+- Local graphical preview (Phase 4)
+- Work-side Runner (Phase 8)
+- Experimental `.msapp` (Phase 9)
+- Microsoft authentication / connected APIs
+- MCP servers and editor extensions
 
 Do not hard-code O-Room terminology into `src/canvasforge`. Reference apps live under `examples/`.
+Never commit generated `dist/*.cforge.zip` kits.
 
 ## Pull requests
 
 1. Keep changes focused and documented.
-2. Add or update unit tests for validation and CLI behavior.
+2. Add or update unit tests for validation, generation, and packaging behavior.
 3. Ensure `ruff`, `mypy`, and `pytest` pass.
 4. Do not add network calls in offline mode.
 5. Do not introduce authentication or secret handling.
@@ -60,7 +60,7 @@ Do not hard-code O-Room terminology into `src/canvasforge`. Reference apps live 
 - Typed Python with Pydantic v2 models
 - Strict mypy where practical
 - Ruff for lint and format
-- Deterministic planner output suitable for snapshot tests
+- Deterministic planner and kit output suitable for snapshot tests
 
 ## Questions
 

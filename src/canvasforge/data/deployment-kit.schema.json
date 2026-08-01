@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canvasforge.local/schemas/deployment-kit.schema.json",
+  "title": "CanvasForge Deployment Kit Project Descriptor",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "packageFormat",
+    "packageSchemaVersion",
+    "canvasforgeVersion",
+    "projectKey",
+    "projectName",
+    "projectVersion",
+    "manifestVersion",
+    "buildId",
+    "buildMaturity",
+    "targetAdapter",
+    "compatibilityProfileId",
+    "compatibilityProfileVersion",
+    "entryManifest",
+    "generatedScreens",
+    "generatedBlocks",
+    "includedFeatures",
+    "excludedFeatures",
+    "requiredManualSteps",
+    "packageContentChecksum",
+    "reproducible",
+    "sourceManifestChecksum",
+    "packageCreatedBy",
+    "securityClassification",
+    "containsProductionData",
+    "containsCredentials",
+    "containsTenantIdentifiers",
+    "mockDataIncluded",
+    "mockDataClassification",
+    "notes"
+  ],
+  "properties": {
+    "packageFormat": { "const": "CanvasForgeDeploymentKit" },
+    "packageSchemaVersion": {
+      "type": "string",
+      "pattern": "^0\\.[0-9]+$"
+    },
+    "canvasforgeVersion": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "projectKey": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "projectName": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "projectVersion": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "manifestVersion": { "type": "string", "minLength": 1, "maxLength": 32 },
+    "buildId": { "type": "string", "minLength": 8, "maxLength": 64 },
+    "buildMaturity": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "targetAdapter": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "compatibilityProfileId": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "compatibilityProfileVersion": { "type": "string", "minLength": 1, "maxLength": 32 },
+    "entryManifest": { "type": "string", "const": "app.manifest.yaml" },
+    "generatedScreens": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "generatedBlocks": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "includedFeatures": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "excludedFeatures": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "requiredManualSteps": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "packageContentChecksum": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "reproducible": { "type": "boolean" },
+    "sourceManifestChecksum": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "packageCreatedBy": { "const": "CanvasForge" },
+    "securityClassification": { "const": "fictional-development" },
+    "containsProductionData": { "const": false },
+    "containsCredentials": { "const": false },
+    "containsTenantIdentifiers": { "const": false },
+    "mockDataIncluded": { "type": "boolean" },
+    "mockDataClassification": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "notes": { "type": "string", "maxLength": 4000 }
+  }
+}

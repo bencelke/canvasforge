@@ -73,17 +73,15 @@ The kit **must not** contain:
 4. Applied in Studio only by an authorized maker.
 5. Studio validation and publishing remain human-owned.
 
-## Builder (future — Phase 3B)
+## Builder (Phase 3B — implemented)
 
-A CLI command (name TBD, e.g. `canvasforge package`) will:
+```bash
+uv run canvasforge package path/to/app.yaml --output dist/App.cforge.zip
+uv run canvasforge package inspect dist/App.cforge.zip
+uv run canvasforge package verify dist/App.cforge.zip
+```
 
-1. Validate the manifest
-2. Run generation for the selected target
-3. Assemble the directory tree above
-4. Write checksums
-5. Zip to `*.cforge.zip`
-
-No Deployment Kit builder code is implemented in Phase 3A.
+See [deployment-kit-format.md](deployment-kit-format.md).
 
 ## Consumer (future — Phase 8)
 
