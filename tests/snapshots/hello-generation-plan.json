@@ -1,0 +1,133 @@
+{
+  "app_key": "helloCanvasForge",
+  "build_id": "96be0ad25fc43e75",
+  "steps": [
+    {
+      "action": "Initialize adapter",
+      "detail": "Candidate Code View output",
+      "index": 1,
+      "target": "code-view"
+    },
+    {
+      "action": "Create screen",
+      "detail": "key=scrDashboard",
+      "index": 2,
+      "target": "scrDashboard"
+    },
+    {
+      "action": "Add root container",
+      "detail": "conScreenRoot",
+      "index": 3,
+      "target": "conScreenRoot"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=VerticalContainer; id=hellocanvasforge/scrdashboard/root",
+      "index": 4,
+      "target": "conScreenRoot"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=Text; id=hellocanvasforge/scrdashboard/hdrdashboard/title",
+      "index": 5,
+      "target": "lblPageTitle"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=HorizontalContainer; id=hellocanvasforge/scrdashboard/gridsummary/grid",
+      "index": 6,
+      "target": "conSummaryRow"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=VerticalContainer; id=hellocanvasforge/scrdashboard/cardready/card",
+      "index": 7,
+      "target": "conCardOpen"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=Text; id=hellocanvasforge/scrdashboard/cardready/value-label",
+      "index": 8,
+      "target": "lblCardOpenValue"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=Text; id=hellocanvasforge/scrdashboard/cardready/title-label",
+      "index": 9,
+      "target": "lblCardOpenLabel"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=VerticalContainer; id=hellocanvasforge/scrdashboard/cardpending/card",
+      "index": 10,
+      "target": "conCardCompleted"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=Text; id=hellocanvasforge/scrdashboard/cardpending/value-label",
+      "index": 11,
+      "target": "lblCardCompletedValue"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=Text; id=hellocanvasforge/scrdashboard/cardpending/title-label",
+      "index": 12,
+      "target": "lblCardCompletedLabel"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=VerticalContainer; id=hellocanvasforge/scrdashboard/emptydashboard/empty-state",
+      "index": 13,
+      "target": "conEmptyState"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=Text; id=hellocanvasforge/scrdashboard/emptydashboard/empty-title",
+      "index": 14,
+      "target": "lblEmptyStateTitle"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=Text; id=hellocanvasforge/scrdashboard/emptydashboard/empty-body",
+      "index": 15,
+      "target": "lblEmptyStateBody"
+    },
+    {
+      "action": "Add control",
+      "detail": "type=Button; id=hellocanvasforge/scrdashboard/emptydashboard/empty-action",
+      "index": 16,
+      "target": "btnEmptyStateAction"
+    },
+    {
+      "action": "Expand section",
+      "detail": "generatable",
+      "index": 17,
+      "target": "hdrDashboard"
+    },
+    {
+      "action": "Expand section",
+      "detail": "generatable",
+      "index": 18,
+      "target": "gridSummary"
+    },
+    {
+      "action": "Expand section",
+      "detail": "generatable",
+      "index": 19,
+      "target": "cardReady"
+    },
+    {
+      "action": "Expand section",
+      "detail": "generatable",
+      "index": 20,
+      "target": "cardPending"
+    },
+    {
+      "action": "Expand section",
+      "detail": "generatable",
+      "index": 21,
+      "target": "emptyDashboard"
+    }
+  ],
+  "target": "code-view"
+}

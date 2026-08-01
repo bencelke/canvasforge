@@ -2,9 +2,9 @@
 
 **Local, manifest-driven compiler and validation tool for AI-assisted Microsoft Power Apps Canvas frontend generation.**
 
-CanvasForge helps AI coding agents and developers describe administrative Canvas apps as structured manifests, validate them offline, and produce deterministic generation plans. Power Apps Studio remains the final rendering and validation authority.
+CanvasForge helps AI coding agents and developers describe administrative Canvas apps as structured manifests, validate them offline, produce deterministic control trees, and emit **Candidate** Code View YAML for manual Studio validation. Power Apps Studio remains the final rendering and validation authority.
 
-> **Phase 1 status:** Offline foundation only. No Power Apps YAML generation, no `.msapp` packaging, no Microsoft connectivity, no authentication.
+> **Phase 2 status:** Verified control model + first generation proof. Candidate Code View YAML only — **Studio-unvalidated**. No `.msapp` packaging, no Microsoft connectivity, no authentication.
 
 ## Problem
 
@@ -17,10 +17,10 @@ Natural-language prompt
   → CanvasForge manifest (YAML)
   → Schema validation
   → Semantic validation
-  → Normalized internal representation
-  → Generation plan
-  → Power Apps target adapter (future)
-  → Studio validation
+  → Normalized internal representation (AppIR)
+  → Control tree expansion
+  → Code View adapter (Candidate)
+  → Studio validation (manual)
   → Human polishing
 ```
 
@@ -30,8 +30,11 @@ Natural-language prompt
 |------|--------|
 | Manifest v0.1 models + JSON Schema | Done |
 | CLI: version / doctor / validate / inspect / plan | Done |
-| Hello + O-Room requestor dashboard examples | Done |
-| Power Apps YAML / Code View output | Not started |
+| CLI: generate / controls / evidence | Done (Phase 2) |
+| Control allowlist + evidence model | Done (documented bootstrap) |
+| Hello Candidate Code View generation | Done (Studio-unvalidated) |
+| O-Room reduced proof manifest | Done |
+| Studio-exported fixtures | None yet |
 | Microsoft connected mode | Not started |
 | MCP / editor extensions / React preview | Out of scope for now |
 
@@ -55,8 +58,13 @@ uv run canvasforge doctor
 uv run canvasforge validate examples/hello-canvasforge/app.yaml
 uv run canvasforge inspect examples/hello-canvasforge/app.yaml
 uv run canvasforge plan examples/hello-canvasforge/app.yaml
+uv run canvasforge generate examples/hello-canvasforge/app.yaml --target code-view
+uv run canvasforge controls
+uv run canvasforge evidence list
 
 uv run canvasforge validate examples/oroom-actions/app.yaml
+uv run canvasforge validate examples/oroom-actions/dashboard-proof.yaml
+uv run canvasforge generate examples/oroom-actions/dashboard-proof.yaml --target code-view
 ```
 
 ## CLI examples
@@ -67,7 +75,17 @@ uv run canvasforge doctor
 uv run canvasforge validate path/to/app.yaml
 uv run canvasforge inspect path/to/app.yaml
 uv run canvasforge plan path/to/app.yaml
+uv run canvasforge generate path/to/app.yaml --target code-view
+uv run canvasforge generate path/to/app.yaml --dry-run
+uv run canvasforge generate path/to/app.yaml --allow-partial
+uv run canvasforge controls
+uv run canvasforge controls --json
+uv run canvasforge evidence list
 ```
+
+### Candidate output disclaimer
+
+Generated Code View YAML under `generated/` is a **Studio-unvalidated Candidate**. Do not edit generated files. Do not treat them as production source. Follow [docs/studio-round-trip.md](docs/studio-round-trip.md) before trusting any paste into Studio.
 
 ## Example manifest excerpt
 
@@ -113,10 +131,11 @@ uv run mypy src tests
 
 ## Roadmap
 
-1. Phase 1 (now): manifest validation + planning
-2. Phase 2+: Studio-verified control allowlists and Code View adapters
-3. Later: optional connected authoring with explicit human approval
-4. Only if supported: verified package/source workflows
+1. Phase 1 (done): manifest validation + planning
+2. Phase 2 (done): control allowlist + Candidate Code View vertical slice
+3. Phase 3: Studio-exported fixtures + promote evidence; expand allowlist carefully
+4. Later: optional connected authoring with explicit human approval
+5. Only if supported: verified package/source workflows
 
 Details: [docs/development-roadmap.md](docs/development-roadmap.md)
 

@@ -1,0 +1,918 @@
+{
+  "appKey": "helloCanvasForge",
+  "appName": "Hello CanvasForge",
+  "screens": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [],
+              "control_type": "Text",
+              "evidence_status": "documented",
+              "formulas": [
+                {
+                  "evidence_status": "documented",
+                  "expression": "=\"Welcome to CanvasForge\"",
+                  "name": "Text"
+                },
+                {
+                  "evidence_status": "documented",
+                  "expression": "=RGBA(27, 27, 27, 1)",
+                  "name": "Color"
+                },
+                {
+                  "evidence_status": "documented",
+                  "expression": "=Parent.Width",
+                  "name": "Width"
+                }
+              ],
+              "generation_status": "candidate",
+              "id": "hellocanvasforge/scrdashboard/hdrdashboard/title",
+              "layout": null,
+              "name": "lblPageTitle",
+              "notes": null,
+              "parent_id": "hellocanvasforge/scrdashboard/root",
+              "properties": [
+                {
+                  "evidence_status": "documented",
+                  "kind": "formula",
+                  "name": "Text",
+                  "value": "=\"Welcome to CanvasForge\""
+                },
+                {
+                  "evidence_status": "documented",
+                  "kind": "literal",
+                  "name": "Size",
+                  "value": 28
+                },
+                {
+                  "evidence_status": "documented",
+                  "kind": "literal",
+                  "name": "FontWeight",
+                  "value": "Bold"
+                },
+                {
+                  "evidence_status": "documented",
+                  "kind": "formula",
+                  "name": "Color",
+                  "value": "=RGBA(27, 27, 27, 1)"
+                },
+                {
+                  "evidence_status": "documented",
+                  "kind": "literal",
+                  "name": "Align",
+                  "value": "Left"
+                },
+                {
+                  "evidence_status": "documented",
+                  "kind": "literal",
+                  "name": "Wrap",
+                  "value": true
+                },
+                {
+                  "evidence_status": "documented",
+                  "kind": "literal",
+                  "name": "AccessibleLabel",
+                  "value": "Welcome to CanvasForge"
+                },
+                {
+                  "evidence_status": "documented",
+                  "kind": "formula",
+                  "name": "Width",
+                  "value": "=Parent.Width"
+                }
+              ],
+              "source": {
+                "app_key": "helloCanvasForge",
+                "path": "$.screens.0.sections.0",
+                "role": "page-title",
+                "screen_key": "scrDashboard",
+                "section_key": "hdrDashboard"
+              }
+            },
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "control_type": "Text",
+                      "evidence_status": "documented",
+                      "formulas": [
+                        {
+                          "evidence_status": "documented",
+                          "expression": "=\"1\"",
+                          "name": "Text"
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "expression": "=RGBA(27, 27, 27, 1)",
+                          "name": "Color"
+                        }
+                      ],
+                      "generation_status": "candidate",
+                      "id": "hellocanvasforge/scrdashboard/cardready/value-label",
+                      "layout": null,
+                      "name": "lblCardOpenValue",
+                      "notes": null,
+                      "parent_id": "hellocanvasforge/scrdashboard/cardready/card",
+                      "properties": [
+                        {
+                          "evidence_status": "documented",
+                          "kind": "formula",
+                          "name": "Text",
+                          "value": "=\"1\""
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "literal",
+                          "name": "Size",
+                          "value": 24
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "literal",
+                          "name": "FontWeight",
+                          "value": "Semibold"
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "formula",
+                          "name": "Color",
+                          "value": "=RGBA(27, 27, 27, 1)"
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "literal",
+                          "name": "AccessibleLabel",
+                          "value": "Ready Screens value"
+                        }
+                      ],
+                      "source": {
+                        "app_key": "helloCanvasForge",
+                        "path": "$.screens.0.sections.2",
+                        "role": "value-label",
+                        "screen_key": "scrDashboard",
+                        "section_key": "cardReady"
+                      }
+                    },
+                    {
+                      "children": [],
+                      "control_type": "Text",
+                      "evidence_status": "documented",
+                      "formulas": [
+                        {
+                          "evidence_status": "documented",
+                          "expression": "=\"Ready Screens\"",
+                          "name": "Text"
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "expression": "=RGBA(27, 27, 27, 1)",
+                          "name": "Color"
+                        }
+                      ],
+                      "generation_status": "candidate",
+                      "id": "hellocanvasforge/scrdashboard/cardready/title-label",
+                      "layout": null,
+                      "name": "lblCardOpenLabel",
+                      "notes": null,
+                      "parent_id": "hellocanvasforge/scrdashboard/cardready/card",
+                      "properties": [
+                        {
+                          "evidence_status": "documented",
+                          "kind": "formula",
+                          "name": "Text",
+                          "value": "=\"Ready Screens\""
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "literal",
+                          "name": "Size",
+                          "value": 12
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "literal",
+                          "name": "FontWeight",
+                          "value": "Normal"
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "formula",
+                          "name": "Color",
+                          "value": "=RGBA(27, 27, 27, 1)"
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "literal",
+                          "name": "AccessibleLabel",
+                          "value": "Ready Screens"
+                        }
+                      ],
+                      "source": {
+                        "app_key": "helloCanvasForge",
+                        "path": "$.screens.0.sections.2",
+                        "role": "title-label",
+                        "screen_key": "scrDashboard",
+                        "section_key": "cardReady"
+                      }
+                    }
+                  ],
+                  "control_type": "VerticalContainer",
+                  "evidence_status": "documented",
+                  "formulas": [
+                    {
+                      "evidence_status": "documented",
+                      "expression": "=RGBA(247, 247, 242, 1)",
+                      "name": "Fill"
+                    }
+                  ],
+                  "generation_status": "candidate",
+                  "id": "hellocanvasforge/scrdashboard/cardready/card",
+                  "layout": {
+                    "direction": "vertical",
+                    "fill_portions": 1,
+                    "gap": 4,
+                    "padding": [
+                      12,
+                      12,
+                      12,
+                      12
+                    ]
+                  },
+                  "name": "conCardOpen",
+                  "notes": null,
+                  "parent_id": "hellocanvasforge/scrdashboard/gridsummary/grid",
+                  "properties": [
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "LayoutDirection",
+                      "value": "Vertical"
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "LayoutGap",
+                      "value": 4
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "PaddingTop",
+                      "value": 12
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "PaddingRight",
+                      "value": 12
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "PaddingBottom",
+                      "value": 12
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "PaddingLeft",
+                      "value": 12
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "FillPortions",
+                      "value": 1
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "formula",
+                      "name": "Fill",
+                      "value": "=RGBA(247, 247, 242, 1)"
+                    }
+                  ],
+                  "source": {
+                    "app_key": "helloCanvasForge",
+                    "path": "$.screens.0.sections.2",
+                    "role": "summary-card",
+                    "screen_key": "scrDashboard",
+                    "section_key": "cardReady"
+                  }
+                },
+                {
+                  "children": [
+                    {
+                      "children": [],
+                      "control_type": "Text",
+                      "evidence_status": "documented",
+                      "formulas": [
+                        {
+                          "evidence_status": "documented",
+                          "expression": "=\"0\"",
+                          "name": "Text"
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "expression": "=RGBA(27, 27, 27, 1)",
+                          "name": "Color"
+                        }
+                      ],
+                      "generation_status": "candidate",
+                      "id": "hellocanvasforge/scrdashboard/cardpending/value-label",
+                      "layout": null,
+                      "name": "lblCardCompletedValue",
+                      "notes": null,
+                      "parent_id": "hellocanvasforge/scrdashboard/cardpending/card",
+                      "properties": [
+                        {
+                          "evidence_status": "documented",
+                          "kind": "formula",
+                          "name": "Text",
+                          "value": "=\"0\""
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "literal",
+                          "name": "Size",
+                          "value": 24
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "literal",
+                          "name": "FontWeight",
+                          "value": "Semibold"
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "formula",
+                          "name": "Color",
+                          "value": "=RGBA(27, 27, 27, 1)"
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "literal",
+                          "name": "AccessibleLabel",
+                          "value": "Pending Sections value"
+                        }
+                      ],
+                      "source": {
+                        "app_key": "helloCanvasForge",
+                        "path": "$.screens.0.sections.3",
+                        "role": "value-label",
+                        "screen_key": "scrDashboard",
+                        "section_key": "cardPending"
+                      }
+                    },
+                    {
+                      "children": [],
+                      "control_type": "Text",
+                      "evidence_status": "documented",
+                      "formulas": [
+                        {
+                          "evidence_status": "documented",
+                          "expression": "=\"Pending Sections\"",
+                          "name": "Text"
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "expression": "=RGBA(27, 27, 27, 1)",
+                          "name": "Color"
+                        }
+                      ],
+                      "generation_status": "candidate",
+                      "id": "hellocanvasforge/scrdashboard/cardpending/title-label",
+                      "layout": null,
+                      "name": "lblCardCompletedLabel",
+                      "notes": null,
+                      "parent_id": "hellocanvasforge/scrdashboard/cardpending/card",
+                      "properties": [
+                        {
+                          "evidence_status": "documented",
+                          "kind": "formula",
+                          "name": "Text",
+                          "value": "=\"Pending Sections\""
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "literal",
+                          "name": "Size",
+                          "value": 12
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "literal",
+                          "name": "FontWeight",
+                          "value": "Normal"
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "formula",
+                          "name": "Color",
+                          "value": "=RGBA(27, 27, 27, 1)"
+                        },
+                        {
+                          "evidence_status": "documented",
+                          "kind": "literal",
+                          "name": "AccessibleLabel",
+                          "value": "Pending Sections"
+                        }
+                      ],
+                      "source": {
+                        "app_key": "helloCanvasForge",
+                        "path": "$.screens.0.sections.3",
+                        "role": "title-label",
+                        "screen_key": "scrDashboard",
+                        "section_key": "cardPending"
+                      }
+                    }
+                  ],
+                  "control_type": "VerticalContainer",
+                  "evidence_status": "documented",
+                  "formulas": [
+                    {
+                      "evidence_status": "documented",
+                      "expression": "=RGBA(247, 247, 242, 1)",
+                      "name": "Fill"
+                    }
+                  ],
+                  "generation_status": "candidate",
+                  "id": "hellocanvasforge/scrdashboard/cardpending/card",
+                  "layout": {
+                    "direction": "vertical",
+                    "fill_portions": 1,
+                    "gap": 4,
+                    "padding": [
+                      12,
+                      12,
+                      12,
+                      12
+                    ]
+                  },
+                  "name": "conCardCompleted",
+                  "notes": null,
+                  "parent_id": "hellocanvasforge/scrdashboard/gridsummary/grid",
+                  "properties": [
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "LayoutDirection",
+                      "value": "Vertical"
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "LayoutGap",
+                      "value": 4
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "PaddingTop",
+                      "value": 12
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "PaddingRight",
+                      "value": 12
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "PaddingBottom",
+                      "value": 12
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "PaddingLeft",
+                      "value": 12
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "FillPortions",
+                      "value": 1
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "formula",
+                      "name": "Fill",
+                      "value": "=RGBA(247, 247, 242, 1)"
+                    }
+                  ],
+                  "source": {
+                    "app_key": "helloCanvasForge",
+                    "path": "$.screens.0.sections.3",
+                    "role": "summary-card",
+                    "screen_key": "scrDashboard",
+                    "section_key": "cardPending"
+                  }
+                }
+              ],
+              "control_type": "HorizontalContainer",
+              "evidence_status": "documented",
+              "formulas": [
+                {
+                  "evidence_status": "documented",
+                  "expression": "=Parent.Width",
+                  "name": "Width"
+                }
+              ],
+              "generation_status": "candidate",
+              "id": "hellocanvasforge/scrdashboard/gridsummary/grid",
+              "layout": {
+                "direction": "horizontal",
+                "fill_portions": 1,
+                "gap": 12,
+                "padding": null
+              },
+              "name": "conSummaryRow",
+              "notes": null,
+              "parent_id": "hellocanvasforge/scrdashboard/root",
+              "properties": [
+                {
+                  "evidence_status": "documented",
+                  "kind": "formula",
+                  "name": "Width",
+                  "value": "=Parent.Width"
+                },
+                {
+                  "evidence_status": "documented",
+                  "kind": "literal",
+                  "name": "LayoutDirection",
+                  "value": "Horizontal"
+                },
+                {
+                  "evidence_status": "documented",
+                  "kind": "literal",
+                  "name": "LayoutGap",
+                  "value": 12
+                },
+                {
+                  "evidence_status": "documented",
+                  "kind": "literal",
+                  "name": "FillPortions",
+                  "value": 1
+                }
+              ],
+              "source": {
+                "app_key": "helloCanvasForge",
+                "path": "$.screens.0.sections.1",
+                "role": "summary-grid",
+                "screen_key": "scrDashboard",
+                "section_key": "gridSummary"
+              }
+            },
+            {
+              "children": [
+                {
+                  "children": [],
+                  "control_type": "Text",
+                  "evidence_status": "documented",
+                  "formulas": [
+                    {
+                      "evidence_status": "documented",
+                      "expression": "=\"No additional widgets\"",
+                      "name": "Text"
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "expression": "=RGBA(27, 27, 27, 1)",
+                      "name": "Color"
+                    }
+                  ],
+                  "generation_status": "candidate",
+                  "id": "hellocanvasforge/scrdashboard/emptydashboard/empty-title",
+                  "layout": null,
+                  "name": "lblEmptyStateTitle",
+                  "notes": null,
+                  "parent_id": "hellocanvasforge/scrdashboard/emptydashboard/empty-state",
+                  "properties": [
+                    {
+                      "evidence_status": "documented",
+                      "kind": "formula",
+                      "name": "Text",
+                      "value": "=\"No additional widgets\""
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "Size",
+                      "value": 18
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "FontWeight",
+                      "value": "Semibold"
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "formula",
+                      "name": "Color",
+                      "value": "=RGBA(27, 27, 27, 1)"
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "AccessibleLabel",
+                      "value": "No additional widgets"
+                    }
+                  ],
+                  "source": {
+                    "app_key": "helloCanvasForge",
+                    "path": "$.screens.0.sections.4",
+                    "role": "empty-title",
+                    "screen_key": "scrDashboard",
+                    "section_key": "emptyDashboard"
+                  }
+                },
+                {
+                  "children": [],
+                  "control_type": "Text",
+                  "evidence_status": "documented",
+                  "formulas": [
+                    {
+                      "evidence_status": "documented",
+                      "expression": "=\"Add sections to this manifest to extend the plan.\"",
+                      "name": "Text"
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "expression": "=RGBA(27, 27, 27, 1)",
+                      "name": "Color"
+                    }
+                  ],
+                  "generation_status": "candidate",
+                  "id": "hellocanvasforge/scrdashboard/emptydashboard/empty-body",
+                  "layout": null,
+                  "name": "lblEmptyStateBody",
+                  "notes": null,
+                  "parent_id": "hellocanvasforge/scrdashboard/emptydashboard/empty-state",
+                  "properties": [
+                    {
+                      "evidence_status": "documented",
+                      "kind": "formula",
+                      "name": "Text",
+                      "value": "=\"Add sections to this manifest to extend the plan.\""
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "Size",
+                      "value": 14
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "Wrap",
+                      "value": true
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "formula",
+                      "name": "Color",
+                      "value": "=RGBA(27, 27, 27, 1)"
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "AccessibleLabel",
+                      "value": "Add sections to this manifest to extend the plan."
+                    }
+                  ],
+                  "source": {
+                    "app_key": "helloCanvasForge",
+                    "path": "$.screens.0.sections.4",
+                    "role": "empty-body",
+                    "screen_key": "scrDashboard",
+                    "section_key": "emptyDashboard"
+                  }
+                },
+                {
+                  "children": [],
+                  "control_type": "Button",
+                  "evidence_status": "documented",
+                  "formulas": [
+                    {
+                      "evidence_status": "documented",
+                      "expression": "=\"Get started\"",
+                      "name": "Text"
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "expression": "=DisplayMode.Edit",
+                      "name": "DisplayMode"
+                    }
+                  ],
+                  "generation_status": "candidate",
+                  "id": "hellocanvasforge/scrdashboard/emptydashboard/empty-action",
+                  "layout": null,
+                  "name": "btnEmptyStateAction",
+                  "notes": "OnSelect omitted until Studio-exported evidence exists.",
+                  "parent_id": "hellocanvasforge/scrdashboard/emptydashboard/empty-state",
+                  "properties": [
+                    {
+                      "evidence_status": "documented",
+                      "kind": "formula",
+                      "name": "Text",
+                      "value": "=\"Get started\""
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "literal",
+                      "name": "AccessibleLabel",
+                      "value": "Get started"
+                    },
+                    {
+                      "evidence_status": "documented",
+                      "kind": "formula",
+                      "name": "DisplayMode",
+                      "value": "=DisplayMode.Edit"
+                    }
+                  ],
+                  "source": {
+                    "app_key": "helloCanvasForge",
+                    "path": "$.screens.0.sections.4",
+                    "role": "empty-action",
+                    "screen_key": "scrDashboard",
+                    "section_key": "emptyDashboard"
+                  }
+                }
+              ],
+              "control_type": "VerticalContainer",
+              "evidence_status": "documented",
+              "formulas": [
+                {
+                  "evidence_status": "documented",
+                  "expression": "=Parent.Width",
+                  "name": "Width"
+                }
+              ],
+              "generation_status": "candidate",
+              "id": "hellocanvasforge/scrdashboard/emptydashboard/empty-state",
+              "layout": {
+                "direction": "vertical",
+                "fill_portions": null,
+                "gap": 8,
+                "padding": null
+              },
+              "name": "conEmptyState",
+              "notes": null,
+              "parent_id": "hellocanvasforge/scrdashboard/root",
+              "properties": [
+                {
+                  "evidence_status": "documented",
+                  "kind": "literal",
+                  "name": "LayoutDirection",
+                  "value": "Vertical"
+                },
+                {
+                  "evidence_status": "documented",
+                  "kind": "literal",
+                  "name": "LayoutGap",
+                  "value": 8
+                },
+                {
+                  "evidence_status": "documented",
+                  "kind": "formula",
+                  "name": "Width",
+                  "value": "=Parent.Width"
+                }
+              ],
+              "source": {
+                "app_key": "helloCanvasForge",
+                "path": "$.screens.0.sections.4",
+                "role": "empty-state",
+                "screen_key": "scrDashboard",
+                "section_key": "emptyDashboard"
+              }
+            }
+          ],
+          "control_type": "VerticalContainer",
+          "evidence_status": "documented",
+          "formulas": [
+            {
+              "evidence_status": "documented",
+              "expression": "=Parent.Width",
+              "name": "Width"
+            },
+            {
+              "evidence_status": "documented",
+              "expression": "=Parent.Height",
+              "name": "Height"
+            }
+          ],
+          "generation_status": "candidate",
+          "id": "hellocanvasforge/scrdashboard/root",
+          "layout": {
+            "direction": "vertical",
+            "fill_portions": null,
+            "gap": 16,
+            "padding": [
+              24,
+              24,
+              24,
+              24
+            ]
+          },
+          "name": "conScreenRoot",
+          "notes": null,
+          "parent_id": "hellocanvasforge/scrdashboard/screen",
+          "properties": [
+            {
+              "evidence_status": "documented",
+              "kind": "formula",
+              "name": "Width",
+              "value": "=Parent.Width"
+            },
+            {
+              "evidence_status": "documented",
+              "kind": "formula",
+              "name": "Height",
+              "value": "=Parent.Height"
+            },
+            {
+              "evidence_status": "documented",
+              "kind": "literal",
+              "name": "LayoutDirection",
+              "value": "Vertical"
+            },
+            {
+              "evidence_status": "documented",
+              "kind": "literal",
+              "name": "LayoutGap",
+              "value": 16
+            },
+            {
+              "evidence_status": "documented",
+              "kind": "literal",
+              "name": "PaddingTop",
+              "value": 24
+            },
+            {
+              "evidence_status": "documented",
+              "kind": "literal",
+              "name": "PaddingRight",
+              "value": 24
+            },
+            {
+              "evidence_status": "documented",
+              "kind": "literal",
+              "name": "PaddingBottom",
+              "value": 24
+            },
+            {
+              "evidence_status": "documented",
+              "kind": "literal",
+              "name": "PaddingLeft",
+              "value": 24
+            }
+          ],
+          "source": {
+            "app_key": "helloCanvasForge",
+            "path": "$.screens.0.sections",
+            "role": "screen-root",
+            "screen_key": "scrDashboard",
+            "section_key": null
+          }
+        }
+      ],
+      "control_type": "Screen",
+      "evidence_status": "documented",
+      "formulas": [
+        {
+          "evidence_status": "documented",
+          "expression": "=RGBA(247, 247, 242, 1)",
+          "name": "Fill"
+        }
+      ],
+      "generation_status": "candidate",
+      "id": "hellocanvasforge/scrdashboard/screen",
+      "layout": null,
+      "name": "scrDashboard",
+      "notes": null,
+      "parent_id": null,
+      "properties": [
+        {
+          "evidence_status": "documented",
+          "kind": "formula",
+          "name": "Fill",
+          "value": "=RGBA(247, 247, 242, 1)"
+        }
+      ],
+      "source": {
+        "app_key": "helloCanvasForge",
+        "path": "$.screens.0",
+        "role": "screen",
+        "screen_key": "scrDashboard",
+        "section_key": null
+      }
+    }
+  ]
+}

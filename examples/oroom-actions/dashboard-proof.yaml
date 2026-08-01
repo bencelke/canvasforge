@@ -1,0 +1,88 @@
+# O-Room Actions — Phase 2 dashboard proof (reduced)
+# Fictional data only. Offline. Generatable sections only.
+
+app:
+  key: oroomActionsProof
+  name: O-Room Actions Proof
+  description: Reduced requestor dashboard for Phase 2 generation proof.
+  version: 0.1.0
+  manifestVersion: "0.1"
+  layout: responsive-shell
+  startScreen: scrRequestorDashboard
+  theme: themeOroomProof
+
+theme:
+  key: themeOroomProof
+  mode: light
+  tokens:
+    accent: "#1F4E79"
+    surface: "#F3F6F9"
+    text: "#12263A"
+
+permissions:
+  - key: requestor
+    description: Requestor visibility for proof dashboard
+
+screens:
+  - key: scrRequestorDashboard
+    name: Requestor Dashboard
+    title: My Actions
+    shell: responsive-sidebar-header
+    permissions:
+      - requestor
+    sections:
+      - key: hdrMyActions
+        type: page-header
+        title: My Actions
+      - key: gridStatus
+        type: summary-grid
+        title: Status summary
+        layout: four-up
+      - key: cardOpen
+        type: summary-card
+        title: Open Actions
+        properties:
+          value: "3"
+      - key: cardReturned
+        type: summary-card
+        title: Returned
+        properties:
+          value: "1"
+      - key: cardAwaiting
+        type: summary-card
+        title: Awaiting Leadership
+        properties:
+          value: "2"
+      - key: cardCompleted
+        type: summary-card
+        title: Completed
+        properties:
+          value: "4"
+      - key: emptyActions
+        type: empty-state
+        title: No actions match
+        properties:
+          message: Adjust filters or create a new fictional action record.
+
+navigation:
+  - key: navRequestorDashboard
+    label: My Actions
+    targetScreen: scrRequestorDashboard
+    sortOrder: 1
+    permission: requestor
+    implemented: true
+
+breakpoints:
+  mobile: 640
+  tablet: 1024
+  desktop: 1440
+
+metadata:
+  tags:
+    - reference
+    - phase-2-proof
+  owner: CanvasForge Examples
+  createdFor: Phase 2 generation proof
+  notes: >
+    Reduced manifest without action-gallery or search-toolbar.
+    Full reference remains in app.yaml.

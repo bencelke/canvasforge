@@ -1,0 +1,67 @@
+{
+  "artifacts": [
+    {
+      "content_type": "application/yaml",
+      "deterministic": true,
+      "kind": "code-view-yaml",
+      "relative_path": "code-view/scrDashboard.yaml"
+    },
+    {
+      "content_type": "application/json",
+      "deterministic": true,
+      "kind": "generation-plan",
+      "relative_path": "reports/generation-plan.json"
+    },
+    {
+      "content_type": "application/json",
+      "deterministic": true,
+      "kind": "generation-report",
+      "relative_path": "reports/generation-report.json"
+    },
+    {
+      "content_type": "application/json",
+      "deterministic": true,
+      "kind": "control-tree",
+      "relative_path": "reports/control-tree.json"
+    },
+    {
+      "content_type": "application/json",
+      "deterministic": true,
+      "kind": "diagnostics",
+      "relative_path": "reports/diagnostics.json"
+    },
+    {
+      "content_type": "text/markdown",
+      "deterministic": true,
+      "kind": "readme",
+      "relative_path": "reports/README.md"
+    }
+  ],
+  "blockingErrors": [],
+  "buildId": "96be0ad25fc43e75",
+  "canvasforgeVersion": "0.2.0",
+  "controlsGenerated": 14,
+  "evidenceSummary": {
+    "outputStatus": "Candidate",
+    "policy": "documented|studio-exported|studio-validated allowed; inferred blocked",
+    "studioValidationState": "unvalidated"
+  },
+  "formulasGenerated": 24,
+  "manifestChecksum": "ceb8debdf5c64ba60e5a41050b5635606a68402a8bae427cc3b8d007199f9f19",
+  "manifestPath": "app.yaml",
+  "propertiesGenerated": 73,
+  "screensRequested": [
+    "scrDashboard"
+  ],
+  "sectionsExpanded": [
+    "hdrDashboard",
+    "gridSummary",
+    "cardReady",
+    "cardPending",
+    "emptyDashboard"
+  ],
+  "studioValidationState": "unvalidated",
+  "targetAdapter": "code-view",
+  "unsupportedSections": [],
+  "warnings": []
+}

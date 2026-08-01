@@ -12,8 +12,15 @@ from rich.table import Table
 from rich.text import Text
 
 from canvasforge import __version__
+from canvasforge.controls.registry import default_registry
 from canvasforge.diagnostics.doctor import doctor_passed, run_doctor
 from canvasforge.errors import CanvasForgeError
+from canvasforge.evidence.store import (
+    import_evidence_fixture,
+    list_evidence_records,
+    records_as_dicts,
+)
+from canvasforge.generate.pipeline import run_generation
 from canvasforge.manifest.loader import load_manifest_dict
 from canvasforge.manifest.models import AppManifest, Section
 from canvasforge.manifest.validator import parse_manifest
@@ -22,12 +29,18 @@ from canvasforge.planner import build_generation_plan
 app = typer.Typer(
     name="canvasforge",
     help=(
-        "CanvasForge — local, manifest-driven planning and validation for "
-        "Microsoft Power Apps Canvas frontends (offline Phase 1)."
+        "CanvasForge — local, manifest-driven planning and Candidate Code View "
+        "generation for Microsoft Power Apps Canvas frontends (offline)."
     ),
     no_args_is_help=True,
     add_completion=False,
 )
+evidence_app = typer.Typer(
+    name="evidence",
+    help="Inspect and import offline Studio evidence records.",
+    no_args_is_help=True,
+)
+app.add_typer(evidence_app, name="evidence")
 console = Console()
 err_console = Console(stderr=True)
 
@@ -234,6 +247,207 @@ def plan_command(
 
     plan = build_generation_plan(manifest)
     console.print(plan.render())
+
+
+@app.command("controls")
+def controls_command(
+    as_json: Annotated[
+        bool,
+        typer.Option("--json", help="Emit machine-readable JSON"),
+    ] = False,
+) -> None:
+    """List supported logical controls, properties, and evidence status."""
+    registry = default_registry()
+    controls = registry.list_controls()
+    if as_json:
+        payload = [control.model_dump(mode="json") for control in controls]
+        console.print_json(data=payload)
+        return
+
+    table = Table(title="CanvasForge control allowlist (Phase 2)")
+    table.add_column("Logical")
+    table.add_column("Code View ID")
+    table.add_column("Evidence")
+    table.add_column("Properties")
+    table.add_column("Notes")
+    for control in controls:
+        props = ", ".join(prop.name for prop in control.properties)
+        table.add_row(
+            control.logical_name,
+            control.code_view_identifier,
+            control.evidence_status,
+            props,
+            control.notes or "—",
+        )
+    console.print(table)
+    console.print(
+        "[yellow]All generated output is Candidate until Studio-validated evidence exists.[/yellow]"
+    )
+
+
+@app.command("generate")
+def generate_command(
+    manifest_path: Annotated[
+        Path,
+        typer.Argument(exists=False, dir_okay=False, readable=False, help="Path to app.yaml"),
+    ],
+    target: Annotated[
+        str,
+        typer.Option("--target", help="Target adapter (Phase 2: code-view)"),
+    ] = "code-view",
+    output: Annotated[
+        Path | None,
+        typer.Option("--output", help="Output directory (default: generated/<app-key>)"),
+    ] = None,
+    screen: Annotated[
+        str | None,
+        typer.Option("--screen", help="Generate a single screen key"),
+    ] = None,
+    dry_run: Annotated[
+        bool,
+        typer.Option("--dry-run", help="Build artifacts in memory without writing files"),
+    ] = False,
+    allow_partial: Annotated[
+        bool,
+        typer.Option(
+            "--allow-partial",
+            help="Omit unsupported sections with warnings instead of failing",
+        ),
+    ] = False,
+    as_json: Annotated[
+        bool,
+        typer.Option("--json", help="Emit machine-readable summary JSON"),
+    ] = False,
+) -> None:
+    """Generate Candidate Code View YAML and reports from a manifest."""
+    try:
+        result = run_generation(
+            manifest_path,
+            target=target,
+            output_dir=output,
+            screen=screen,
+            dry_run=dry_run,
+            allow_partial=allow_partial,
+        )
+    except CanvasForgeError as exc:
+        _print_failure(exc)
+        raise typer.Exit(code=1) from exc
+
+    if as_json:
+        console.print_json(
+            data={
+                "buildId": result.build_id,
+                "outputDir": str(result.output_dir) if result.output_dir else None,
+                "screens": list(result.yaml_by_screen.keys()),
+                "report": result.report,
+                "diagnostics": [d.to_dict() for d in result.diagnostics],
+            }
+        )
+        return
+
+    console.print(
+        Panel.fit(
+            f"[bold]Candidate generation complete[/bold]\n"
+            f"buildId={result.build_id}\n"
+            f"status=Studio-unvalidated Candidate\n"
+            f"screens={', '.join(result.yaml_by_screen.keys())}",
+            title="generate",
+        )
+    )
+    if result.output_dir is not None:
+        console.print(f"Output: {result.output_dir}")
+        for artifact in result.artifacts:
+            console.print(f"  - {artifact.relative_path}")
+    else:
+        console.print("[cyan]Dry run — no files written[/cyan]")
+    for diagnostic in result.diagnostics:
+        if diagnostic.severity == "warning":
+            console.print(f"[yellow]{diagnostic.format_terminal()}[/yellow]")
+
+
+@evidence_app.command("list")
+def evidence_list_command(
+    as_json: Annotated[
+        bool,
+        typer.Option("--json", help="Emit JSON"),
+    ] = False,
+) -> None:
+    """List bootstrap and local evidence records."""
+    records = list_evidence_records()
+    if as_json:
+        console.print_json(data=records_as_dicts(records))
+        return
+    table = Table(title="Evidence records")
+    table.add_column("ID")
+    table.add_column("Control")
+    table.add_column("Property")
+    table.add_column("Source")
+    table.add_column("Env")
+    table.add_column("Notes")
+    for record in records:
+        table.add_row(
+            record.evidence_id,
+            record.control_type,
+            record.property or "—",
+            record.source_type,
+            record.environment_class,
+            (record.notes or "—")[:60],
+        )
+    console.print(table)
+    console.print(
+        "[yellow]No automatic promotion. Studio validation remains manual and explicit.[/yellow]"
+    )
+
+
+@evidence_app.command("import")
+def evidence_import_command(
+    file_path: Annotated[
+        Path,
+        typer.Argument(exists=False, dir_okay=False, readable=False, help="Local fixture file"),
+    ],
+    control_type: Annotated[
+        str,
+        typer.Option("--control-type", help="Logical or Code View control type label"),
+    ] = "Unknown",
+    property_name: Annotated[
+        str | None,
+        typer.Option("--property", help="Optional property name"),
+    ] = None,
+) -> None:
+    """Import a local Studio-exported text fixture (offline, size-limited)."""
+    try:
+        record = import_evidence_fixture(
+            file_path,
+            control_type=control_type,
+            property_name=property_name,
+        )
+    except CanvasForgeError as exc:
+        _print_failure(exc)
+        raise typer.Exit(code=1) from exc
+    console.print(
+        f"[green]Imported[/green] {record.evidence_id} "
+        f"(checksum={record.checksum[:12]}…, sourceType={record.source_type})"
+    )
+    console.print(
+        "[yellow]Evidence status is studio-exported Candidate — not auto-validated.[/yellow]"
+    )
+
+
+@evidence_app.command("record-validation")
+def evidence_record_validation_command() -> None:
+    """Describe how to record Studio validation outcomes."""
+    console.print(
+        Panel.fit(
+            "Studio validation is manual.\n\n"
+            "1. Paste Candidate YAML in a sandbox Canvas app.\n"
+            "2. Note Accepted / Accepted with modifications / Rejected.\n"
+            "3. Store a sanitized fixture under evidence/fixtures/.\n"
+            "4. Add a reviewed JSON record under evidence/records/.\n"
+            "5. Never commit tenant IDs, URLs, or personal/military data.\n\n"
+            "See docs/studio-round-trip.md",
+            title="evidence record-validation",
+        )
+    )
 
 
 def main() -> None:

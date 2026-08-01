@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "canvasforge"
-version = "0.1.0"
+version = "0.2.0"
 description = "Local, manifest-driven compiler and validation tool for AI-assisted Microsoft Power Apps Canvas frontend generation."
 readme = "README.md"
 license = "MIT"

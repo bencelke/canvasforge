@@ -61,3 +61,11 @@ class ManifestLoadError(CanvasForgeError):
 
 class ManifestValidationError(CanvasForgeError):
     """Raised when schema or semantic validation fails."""
+
+
+class GenerationError(CanvasForgeError):
+    """Raised when IR expansion or adapter generation fails."""
+
+
+class EvidenceError(CanvasForgeError):
+    """Raised when evidence import or validation recording fails."""

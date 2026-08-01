@@ -9,12 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Phase 0/1 foundation: repository scaffold, product docs, threat model, and feasibility plan.
-- Manifest version `0.1` models, JSON Schema, and semantic validation.
-- CLI commands: `version`, `doctor`, `validate`, `inspect`, `plan`.
-- Hello CanvasForge and O-Room Actions requestor-dashboard example manifests.
-- Offline-only operation with no Microsoft service connectivity.
-- Unit tests, Ruff, mypy, pre-commit config, and GitHub Actions CI.
+- Phase 2: normalized AppIR, control allowlist, Candidate Code View adapter.
+- CLI commands: `generate`, `controls`, `evidence`.
+- Hello CanvasForge deterministic Candidate generation + snapshot tests.
+- O-Room `dashboard-proof.yaml` reduced proof manifest.
+- Studio round-trip and evidence documentation.
+
+## [0.2.0] - Unreleased
+
+Phase 2 Candidate generation foundation (local development; Studio-unvalidated).
 
 ## [0.1.0] - Unreleased
 

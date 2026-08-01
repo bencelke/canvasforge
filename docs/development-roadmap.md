@@ -1,12 +1,12 @@
 # Development Roadmap
 
-## Phase 0 — Product definition (complete in this foundation)
+## Phase 0 — Product definition (complete)
 
 - Vision, non-goals, architecture
 - Threat model and feasibility plan
 - Repository scaffold and safety docs
 
-## Phase 1 — Manifest foundation (this release)
+## Phase 1 — Manifest foundation (complete)
 
 - Manifest v0.1 schema and Pydantic models
 - Loader + schema + semantic validation
@@ -15,24 +15,30 @@
 - O-Room requestor dashboard example (fictional data)
 - Tests, Ruff, mypy, GitHub Actions CI
 
-## Phase 2 — Generation planning depth
+## Phase 2 — Verified control model and first generation proof (complete in tree; Candidate)
 
-- Richer plan metadata (control hints, layout recipes)
-- Snapshot tests for plans
-- Expanded section properties with strict validation
-- Begin Studio-verified control allowlist documentation
+- Normalized AppIR / ControlNode tree
+- Control + property allowlist with evidence statuses
+- Section expansion for header/grid/card/empty/stacks
+- Candidate Code View adapter
+- CLI: `generate`, `controls`, `evidence`
+- Snapshot tests + Studio round-trip documentation
+- O-Room reduced proof manifest
+- **No Studio-exported fixtures yet — all YAML remains Candidate**
 
-## Phase 3 — Code View adapter (proposed)
+## Phase 3 — Studio evidence and adapter hardening (next)
 
-- Emit paste-ready YAML/blocks for allowlisted controls only
-- Fail closed on unsupported constructs
-- Human review checklist output
-- Round-trip evidence in docs (no fabricated `.msapp`)
+- Import real sanitized Studio-exported fixtures
+- Promote properties/controls only via explicit evidence
+- Tighten Code View serialization against fixtures
+- Expand allowlist only after round-trip acceptance
+- Still no `.msapp`, MCP, auth, or connected writes
 
 ## Phase 4 — Power Fx templates (proposed)
 
 - Deterministic formula templates for navigation, filter, counts
 - Formula validation and reference checking
+- OnSelect only with Studio-exported evidence
 
 ## Phase 5 — Connected authoring (proposed, gated)
 
@@ -45,10 +51,3 @@
 
 - Evaluate verified Microsoft package/source workflows
 - Never reverse-engineer unsupported binary formats
-
-## Parallel non-goals until gated
-
-- MCP server productization
-- VS Code / Cursor extension
-- React preview app
-- Live SharePoint / Automate provisioning
