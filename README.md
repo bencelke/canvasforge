@@ -6,7 +6,7 @@ CanvasForge generates **tenant-neutral** frontend structures, Power Fx candidate
 
 It must remain useful **without** AVD, Power Apps login, military tenant access, Microsoft authentication, Environment Maker rights, or direct Microsoft API access.
 
-> **Current baseline:** Phase 3B Deployment Kit builder (``.cforge.zip``). Candidate Code View YAML — **Studio-unvalidated**. No GUI preview yet, no `.msapp` packaging, no Microsoft connectivity, no authentication.
+> **Current baseline:** Phase 4 CanvasForge Studio (local advisory preview). Candidate Code View YAML — **Studio-unvalidated**. Deployment Kits (``.cforge.zip``). No `.msapp` packaging, no Microsoft connectivity, no authentication.
 
 **Public repository warning:** Assume anything committed is world-readable. Never commit secrets, tenant identifiers, credentials, CAC material, real operational data, or unsanitized Studio exports.
 
@@ -21,9 +21,9 @@ Natural-language prompt or Cursor instruction
   → CanvasForge manifest (YAML)
   → Schema + semantic validation
   → Normalized IR (AppIR)
-  → Local visual preview (advisory; future)
+  → Local visual preview (advisory; CanvasForge Studio)
   → Candidate Code View output
-  → Portable Deployment Kit (.cforge.zip; future)
+  → Portable Deployment Kit (.cforge.zip)
   → Approved transfer → maker paste/import in Studio
   → Connect SharePoint / Automate → Studio validate & publish
 ```
@@ -42,7 +42,7 @@ Power Apps Studio remains the final rendering and validation authority. Local pr
 | O-Room reduced proof manifest | Done |
 | Offline App Factory architecture docs | Done (Phase 3A) |
 | Deployment Kit builder (`.cforge.zip`) | Done (Phase 3B) |
-| Local graphical preview | Not started (Phase 4) |
+| Local graphical preview (Studio) | Done (Phase 4; advisory) |
 | Work-side Runner | Not started (Phase 8) |
 | Experimental `.msapp` | Deferred (Phase 9) |
 | Studio Compatibility Laboratory | Planned (Phase 10; preserve prior evidence work) |
@@ -82,6 +82,64 @@ uv run canvasforge package verify dist/Hello-CanvasForge.cforge.zip
 uv run canvasforge package inspect dist/Hello-CanvasForge.cforge.zip
 ```
 
+## CanvasForge Studio (local preview)
+
+Local-only graphical shell over the Python engine. **No Microsoft login. No external network by default.**
+
+**Persistent disclaimer:** Local Preview — Power Apps Studio validation required.
+
+### Install frontend dependencies
+
+```bash
+cd studio
+npm ci
+cd ..
+```
+
+### Development Studio
+
+Terminal A (API on port 8765):
+
+```bash
+uv run canvasforge studio --dev --api-port 8765 --no-open \
+  --project examples/hello-canvasforge/app.yaml
+```
+
+Terminal B (Vite UI; proxies `/api` to 8765):
+
+```bash
+cd studio
+npm run dev
+```
+
+Open `http://127.0.0.1:5173`.
+
+### Build frontend
+
+```bash
+cd studio
+npm run build
+cd ..
+```
+
+### Production-style local Studio
+
+Serves the built UI from `studio/dist` via the Python process (Node.js not required at runtime after build):
+
+```bash
+uv run canvasforge studio --project examples/hello-canvasforge/app.yaml
+```
+
+### Build Kit from Studio
+
+Use **Validate**, then **Build Kit**. Packaging delegates to the Phase 3B Deployment Kit builder/verifier. Kits land under `dist/` and remain gitignored.
+
+Docs: [studio-user-guide.md](docs/studio-user-guide.md), [studio-architecture.md](docs/studio-architecture.md), [studio-security.md](docs/studio-security.md).
+
+### Screenshots
+
+_Screenshots placeholder — add curated local screenshots in a later docs pass. Do not commit internal or operational captures._
+
 ## Deployment Kits (`.cforge.zip`)
 
 A **CanvasForge Deployment Kit** is a portable, tenant-neutral ZIP for approved handoff to an authorized Power Apps maker.
@@ -115,6 +173,8 @@ uv run canvasforge generate path/to/app.yaml --allow-partial
 uv run canvasforge controls
 uv run canvasforge controls --json
 uv run canvasforge evidence list
+uv run canvasforge studio --help
+uv run canvasforge studio --project examples/hello-canvasforge/app.yaml
 ```
 
 ### Candidate output disclaimer
@@ -163,7 +223,11 @@ See [SECURITY.md](SECURITY.md) and [docs/threat-model.md](docs/threat-model.md).
 | [docs/deployment-kit-security.md](docs/deployment-kit-security.md) | Forbidden-content scan and archive limits |
 | [docs/maker-handoff.md](docs/maker-handoff.md) | Work-side handoff concept |
 | [docs/deployment-kit-architecture.md](docs/deployment-kit-architecture.md) | Kit architecture |
-| [docs/local-preview-architecture.md](docs/local-preview-architecture.md) | Future React preview |
+| [docs/local-preview-architecture.md](docs/local-preview-architecture.md) | Advisory preview / Studio bridge |
+| [docs/studio-architecture.md](docs/studio-architecture.md) | Studio API + UI layout |
+| [docs/preview-rendering-model.md](docs/preview-rendering-model.md) | IR → Preview Model |
+| [docs/studio-security.md](docs/studio-security.md) | Loopback and path sandbox |
+| [docs/studio-user-guide.md](docs/studio-user-guide.md) | Run Studio locally |
 | [docs/work-side-runner.md](docs/work-side-runner.md) | Offline work-side Runner |
 | [docs/msapp-experimental-roadmap.md](docs/msapp-experimental-roadmap.md) | Deferred `.msapp` gates |
 | [docs/oroom-reference-strategy.md](docs/oroom-reference-strategy.md) | O-Room reference approach |
@@ -179,6 +243,13 @@ uv run pytest
 uv run ruff check .
 uv run ruff format .
 uv run mypy src tests
+
+cd studio
+npm ci
+npm run lint
+npm run typecheck
+npm run test
+npm run build
 ```
 
 ## Roadmap (summary)
@@ -188,7 +259,7 @@ uv run mypy src tests
 | 1–2 | Manifest + Candidate Code View (done) |
 | 3A | Windows migration + offline architecture pivot (done) |
 | 3B | Deployment Kit builder (done) |
-| 4 | Local graphical preview |
+| 4 | Local graphical preview / Studio (done) |
 | 5 | Prompt-driven manifest editing |
 | 6 | Expanded controls + Power Fx |
 | 7 | O-Room reference implementation |

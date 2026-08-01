@@ -1,6 +1,6 @@
 # Contributing to CanvasForge
 
-Thank you for helping build CanvasForge. This project is early and intentionally constrained (offline App Factory through Phase 3B Deployment Kits).
+Thank you for helping build CanvasForge. This project is early and intentionally constrained (offline App Factory through Phase 4 local Studio).
 
 ## Safety first
 
@@ -25,6 +25,13 @@ uv run canvasforge doctor
 uv run pytest
 uv run ruff check .
 uv run mypy src tests
+
+cd studio
+npm ci
+npm run lint
+npm run typecheck
+npm run test
+npm run build
 ```
 
 ## Scope (current)
@@ -34,15 +41,17 @@ In scope:
 - Manifest models and validation
 - Candidate Code View generation
 - Deployment Kit packaging (`canvasforge package`)
+- Local Studio (`canvasforge studio`) — advisory preview only
 - CLI, documentation, examples, tests, CI
 
 Out of scope until a later phase:
 
-- Local graphical preview (Phase 4)
+- Prompt-driven / AI manifest editing (Phase 5)
 - Work-side Runner (Phase 8)
 - Experimental `.msapp` (Phase 9)
 - Microsoft authentication / connected APIs
 - MCP servers and editor extensions
+- Drag-and-drop Studio editing / manifest mutation via GUI
 
 Do not hard-code O-Room terminology into `src/canvasforge`. Reference apps live under `examples/`.
 Never commit generated `dist/*.cforge.zip` kits.
@@ -51,9 +60,10 @@ Never commit generated `dist/*.cforge.zip` kits.
 
 1. Keep changes focused and documented.
 2. Add or update unit tests for validation, generation, and packaging behavior.
-3. Ensure `ruff`, `mypy`, and `pytest` pass.
+3. Ensure `ruff`, `mypy`, `pytest`, and Studio frontend (`lint` / `typecheck` / `test` / `build`) pass.
 4. Do not add network calls in offline mode.
 5. Do not introduce authentication or secret handling.
+6. Do not reimplement packaging or IR compilation in TypeScript — call the Python API.
 
 ## Code style
 

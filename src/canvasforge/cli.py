@@ -31,6 +31,8 @@ from canvasforge.manifest.loader import load_manifest_dict
 from canvasforge.manifest.models import AppManifest, Section
 from canvasforge.manifest.validator import parse_manifest
 from canvasforge.planner import build_generation_plan
+from canvasforge.studio.security import assert_loopback_host
+from canvasforge.studio.server import run_studio
 
 
 class _PackageTyperGroup(TyperGroup):
@@ -681,6 +683,75 @@ def package_verify_command(
         f"members={payload.get('memberCount')} "
         f"contentChecksum={str(payload.get('packageContentChecksum', ''))[:12]}…"
     )
+
+
+@app.command("studio")
+def studio_command(
+    host: Annotated[
+        str,
+        typer.Option("--host", help="Bind host (loopback only in Phase 4)"),
+    ] = "127.0.0.1",
+    api_port: Annotated[
+        int | None,
+        typer.Option("--api-port", help="API port (default: ephemeral free port)"),
+    ] = None,
+    project: Annotated[
+        Path | None,
+        typer.Option("--project", help="Manifest path to open on startup"),
+    ] = None,
+    no_open: Annotated[
+        bool,
+        typer.Option("--no-open", help="Do not open a browser"),
+    ] = False,
+    dev: Annotated[
+        bool,
+        typer.Option(
+            "--dev",
+            help="Print Vite dev instructions; still serves API (and built UI if present)",
+        ),
+    ] = False,
+) -> None:
+    """Start local CanvasForge Studio (offline graphical preview)."""
+    try:
+        assert_loopback_host(host)
+    except CanvasForgeError as exc:
+        _print_failure(exc)
+        raise typer.Exit(code=1) from exc
+
+    if dev:
+        console.print(
+            Panel.fit(
+                "Dev mode: start Vite UI in another terminal:\n"
+                "  cd studio && npm run dev\n"
+                "API CORS allows http://127.0.0.1:5173\n"
+                "Build UI for single-process serve: cd studio && npm run build",
+                title="studio --dev",
+            )
+        )
+        cors = [
+            "http://127.0.0.1:5173",
+            "http://localhost:5173",
+            "http://127.0.0.1:8765",
+            "http://localhost:8765",
+        ]
+    else:
+        cors = None
+
+    console.print(
+        "[yellow]Local Preview — Power Apps Studio validation required[/yellow]\n"
+        "[cyan]Offline mode — no Microsoft login[/cyan]"
+    )
+    try:
+        run_studio(
+            host=host,
+            api_port=api_port,
+            project=project,
+            open_browser=not no_open,
+            cors_origins=cors,
+        )
+    except CanvasForgeError as exc:
+        _print_failure(exc)
+        raise typer.Exit(code=1) from exc
 
 
 def main() -> None:

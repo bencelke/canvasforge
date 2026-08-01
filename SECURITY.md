@@ -44,6 +44,7 @@ Use fictional reproductions only.
 11. Power Apps Studio remains the final validation authority for generated Canvas artifacts.
 12. Local preview is advisory only — never claim Power Apps runtime equivalence.
 13. Work-side Runner (future) must remain AI-free, offline, and free of Microsoft credential handling.
+14. CanvasForge Studio (Phase 4) binds to loopback only, sandboxes project paths, serves no secrets/env, uses no remote CDNs/fonts, and never claims Power Apps pixel parity.
 
 ## Threat model
 

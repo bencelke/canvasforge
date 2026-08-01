@@ -90,6 +90,8 @@ generated/**
 preview/.cache/
 preview/dist/
 preview/node_modules/
+studio/node_modules/
+studio/dist/
 **/.vite/
 local-preview-cache/
 

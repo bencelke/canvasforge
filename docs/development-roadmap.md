@@ -98,7 +98,7 @@ See also: [offline-app-factory.md](offline-app-factory.md).
 
 ---
 
-## Phase 4 — Local graphical preview
+## Phase 4 — Local graphical preview ✅
 
 ### Goals
 
@@ -111,16 +111,20 @@ See also: [offline-app-factory.md](offline-app-factory.md).
 - Runtime parity with Power Apps
 - Cloud-hosted preview
 - Auth
+- Manifest mutation / AI prompting
 
 ### Deliverables
 
-- Preview app shell with screen tree, canvas, properties, validation
-- Local process/API bridge
-- Device mode toggles
+- `canvasforge studio` CLI (loopback FastAPI + built UI)
+- Preview Model adapter from AppIR (`src/canvasforge/studio/`)
+- React Studio shell (`studio/`) with screen tree, inspector, diagnostics, Build Kit
+- Desktop / tablet / mobile advisory widths
+- Docs: studio-architecture, preview-rendering-model, studio-security, studio-user-guide
 
 ### Dependencies
 
 - Stable IR and generation reports
+- Phase 3B Deployment Kit builder
 
 ### Risks
 
@@ -131,6 +135,7 @@ See also: [offline-app-factory.md](offline-app-factory.md).
 - Preview renders Hello + O-Room proof from IR
 - Disclaimer always visible
 - No Microsoft network calls
+- Build Kit from GUI verifies via existing Python engine
 
 ---
 

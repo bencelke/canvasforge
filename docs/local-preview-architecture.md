@@ -69,10 +69,20 @@ Preview uses fictional mock records derived from `mock-schema/` or example fixtu
 
 ## Implementation phase
 
-Local graphical preview is **Phase 4**. Phase 3A documents the architecture only — no React app, Vite project, or GUI code is added yet.
+Local graphical preview is **Phase 4** and is implemented as **CanvasForge Studio**:
+
+- Backend: `src/canvasforge/studio/` (FastAPI on `127.0.0.1`)
+- Frontend: `studio/` (React + TypeScript + Vite)
+- CLI: `canvasforge studio`
+
+See [studio-architecture.md](studio-architecture.md) and [preview-rendering-model.md](preview-rendering-model.md).
 
 ## Related documents
 
+- [studio-architecture.md](studio-architecture.md)
+- [preview-rendering-model.md](preview-rendering-model.md)
+- [studio-security.md](studio-security.md)
+- [studio-user-guide.md](studio-user-guide.md)
 - [offline-app-factory.md](offline-app-factory.md)
 - [internal-representation.md](internal-representation.md)
 - [deployment-kit-architecture.md](deployment-kit-architecture.md)
